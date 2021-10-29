@@ -5,8 +5,8 @@ const adminDataMapper = require("../datamappers/adminDataMapper");
 const activityController = {
 
     submitActivity: async (req, res) => {
+        console.log("je suis dans le controller submitActivy")
         try {
-            console.log("je suis dans le controller submitActivy")
             console.log(req.body)
             const errors = [];
             const {
@@ -23,7 +23,8 @@ const activityController = {
             if (!title || !description || !zipcode || !town || !free) errors.push('Merci de remplir tous les champs!');
 
             //send data in DB.
-            await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
+            const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
+            console.log(newActivity);
             //send response to the front.
             res.status(200).send("Nous vous remercions de votre proposition, celle-ci sera examinée avec le plus grand soin.")
 

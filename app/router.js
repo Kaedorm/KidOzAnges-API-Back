@@ -11,9 +11,13 @@ const uploadController = require("./middleware/multer");
 router.post("/api/user/signup", userController.signup);
 //user login route
 router.post("/api/user/login", userController.login);
+//show user profile
+router.get("/api/user", userController.showUser);
+// user delete his own profile
+router.delete("/api/user/delete", userController.deleteUser),
 
 //ACTIVITY ROUTES
-//submit an activity
-//router.post("api/submitactivity", upload.single('picture'), activityController.submitActivity);
+//submit an activity , upload.single('picture')
+router.post("api/submitactivity", activityController.submitActivity);
 
 module.exports = router;
