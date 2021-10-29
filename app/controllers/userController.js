@@ -13,7 +13,7 @@ const schema = require("../schemas/passwordSchema"); // password validator modul
 const userController = {
     signup: async (req, res) => {
         try {
-            console.log("je rentre dans le controller")
+            
             console.log(req.body)
             const errors = [];
             const {

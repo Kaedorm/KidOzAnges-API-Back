@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
 // We import all controllers
-const mainController = require("./controllers/mainController")
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
