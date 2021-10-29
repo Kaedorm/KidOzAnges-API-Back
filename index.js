@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const router = require("./app/router");
-const cors = require("cors");
+const cors = require("./app/middleware/cors");
 const path = require("path");
 const session = require("express-session");
 
@@ -9,6 +9,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -18,9 +19,7 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors({
-  origin: null
-}));
+app.use(cors());
 app.use(router);
 
 app.listen(PORT, () => {
