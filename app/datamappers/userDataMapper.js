@@ -41,10 +41,10 @@ const userDataMapper = {
     },
 
     //delete an existing user.
-    deleteUser: async (id) => {
+    deleteUser: async (userId) => {
         const query = {
-            text: "DELETE * FROM \"user\" WHERE id=$1",
-            values: [id]
+            text: "DELETE FROM \"user\" WHERE id=$1",
+            values: [userId]
         }
         try {
             return await pool.query(query)
@@ -53,7 +53,6 @@ const userDataMapper = {
         }
     },
 
-    //show user profile
     showUserProfile: async (userId) => {
         const query = {
             text: "SELECT id, nickname, firstname, lastname, email, gender FROM \"user\" WHERE id=$1;",

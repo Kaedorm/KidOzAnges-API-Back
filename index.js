@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const router = require("./app/router");
-const cors = require("./app/middleware/cors");
+const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
 
@@ -9,12 +9,12 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({origin:"http://localhost:3000"}));
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
   }))
 
 app.use(express.json());
