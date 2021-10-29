@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=koza
+
+init 2021-10-26T11:32:38Z Etudiant O'clock <student@teleporter> # structure de base
+constraints 2021-10-26T13:37:55Z Etudiant O'clock <student@teleporter> # Adding constraints
