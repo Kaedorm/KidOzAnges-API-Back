@@ -95,6 +95,7 @@ const userController = {
                     user,
                     accessToken
                 })
+
             } else {
                 return res.json({
                     error: 'Mot de passe invalide.'
@@ -108,7 +109,9 @@ const userController = {
 
     showUser: async (req, res) => {
         try { 
+
             const user = await userDataMapper.showUserProfile(req.user.id);
+
             res.json(user.rows)
         } catch {
             res.status(500)
@@ -116,9 +119,11 @@ const userController = {
     },
 
     deleteUser: async (req, res) => {
+
         try {
             await userDataMapper.deleteUser(req.user.id);
             res.json({message: "Votre profil a bien été supprimé"});
+
         } catch {
             res.status(500)
         }

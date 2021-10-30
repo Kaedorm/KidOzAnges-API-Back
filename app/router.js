@@ -5,7 +5,7 @@ const auth = require("./middleware/auth")
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
-const uploadController = require("./middleware/multer");
+const upload = require("./middleware/multer");
 
 
 //USER ROUTES
@@ -24,7 +24,8 @@ router.get("/api/user", auth.authenticateToken, userController.showUser);
 router.delete("/api/user/delete", auth.authenticateToken, userController.deleteUser),
 
 //ACTIVITY ROUTES
-//submit an activity , upload.single('picture')
-router.post("api/submitactivity", auth.authenticateToken, activityController.submitActivity);
+
+//submit an activity , 
+router.post("/api/submitactivity", upload.single('picture'), activityController.submitActivity);
 
 module.exports = router;
