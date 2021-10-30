@@ -15,7 +15,7 @@ const userDataMapper = {
     getUserByEmail: async (email) => {
         try {
             const query = {
-                text: "SELECT id, nickname, firstname, lastname, email, password, gender FROM \"user\" WHERE email=$1;",
+                text: "SELECT \"user\".id, \"user\".nickname, \"user\".firstname, \"user\".lastname, \"user\".email, \"user\".password, \"user\".gender, role.level AS role FROM \"user\" JOIN role ON \"user\".role_id = role.id WHERE email=$1;",
                 values: [email]
             }
             return pool.query(query)
