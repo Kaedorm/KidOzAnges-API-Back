@@ -17,14 +17,20 @@ const activityController = {
                 free
             } = req.body;
             const slug = description.slice(30) + '...';
-            const userId = req.session.user.id;
-
+            const userId = req.session.user[0];
+            console.log (userId, "+++++++++");
             //check if all fields are full.
-            if (!title || !description || !zipcode || !town || !free) errors.push('Merci de remplir tous les champs!');
+            if (!title || !description || !zipcode || !town || !free) {
+
+                res.json({
+                    error: 'Merci de compléter tous les champs!'
+                });
+                throw new Error("Proposition échouée, merci de recommencer");
+            };
 
             //send data in DB.
             const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
-            console.log(newActivity);
+            //console.log(newActivity.rows);
             //send response to the front.
             res.status(200).send("Nous vous remercions de votre proposition, celle-ci sera examinée avec le plus grand soin.")
 

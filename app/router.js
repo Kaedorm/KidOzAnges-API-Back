@@ -4,7 +4,7 @@ const router = require("express").Router();
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
-const uploadController = require("./middleware/multer");
+const upload = require("./middleware/multer");
 
 //USER ROUTES
 //User signup route
@@ -17,7 +17,7 @@ router.get("/api/user", userController.showUser);
 router.delete("/api/user/delete", userController.deleteUser),
 
 //ACTIVITY ROUTES
-//submit an activity , upload.single('picture')
-router.post("api/submitactivity", activityController.submitActivity);
+//submit an activity , 
+router.post("/api/submitactivity", upload.single('picture'), activityController.submitActivity);
 
 module.exports = router;
