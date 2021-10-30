@@ -1,6 +1,7 @@
 const activityDataMapper = require("../datamappers/activityDataMapper");
 const userDataMapper = require("../datamappers/userDataMapper");
 const adminDataMapper = require("../datamappers/adminDataMapper");
+const auth = require("../middleware/auth")
 const {
     hashSync,
     compare
@@ -13,8 +14,6 @@ const schema = require("../schemas/passwordSchema"); // password validator modul
 const userController = {
     signup: async (req, res) => {
         try {
-
-            console.log(req.body)
             const errors = [];
             const {
                 nickname,
@@ -30,11 +29,10 @@ const userController = {
             // const userFound = users.find(user => user.email === email.toLowerCase());
 
             const result = await userDataMapper.getUserByEmail(req.body.email.toLowerCase());
-            const user = result.rows[0];
+            // if a user is in database we push an error
+            if(result.rows[0]) errors.push("L'adresse email est déjà utilisée.");
 
             const validatePassword = schema.validate(password);
-            // if a user is in database we push an error
-            if (user) errors.push("L'adresse email est déjà utilisée.");
             // we push errors if user write invalid informations
             // verifying if password contains 1 uppercase letter, 1 lowercase letter, 1 digit, no spaces and greater than 8 characters
             if (!validatePassword) errors.push("Le mot de passe doit contenir 8 caractères minimum, 1 majuscule, 1 minuscule, 1 chiffre");
@@ -87,38 +85,30 @@ const userController = {
             }
             // Users in data base have crypted passwords so we have ton compare them to be sure that the crypted password correspond to the user password in the login form
             const checkingPassword = await compare(req.body.password, user.password)
-            // if compared password's good, we send user infos to the front application and register the user in the session
+            // if compared password's good, we send user infos to the front application and create an unique token for the user
             if (checkingPassword) {
-
-                if (!req.session.user) {
-                    req.session.user = [
-                        user.id = user.id,
-                        nickname = user.nickname,
-                        firstname = user.firstname,
-                        lastname = user.lastname,
-                        email = user.email
-                    ]
-                }
-                console.log(req.session.user);
-                return res.json({
-                    user: req.session.user
-                });
+                // we delete user's password for not send it to client
+                delete user.password
+                const accessToken = auth.generateAccessToken(user)
+                // we send infos to the front application
+                res.json({
+                    user,
+                    accessToken
+                })
             } else {
                 return res.json({
                     error: 'Mot de passe invalide.'
                 })
             }
         } catch (error) {
-            res.json({
-                error
-            }).status(500);
+            res.status(500);
 
         }
     },
 
     showUser: async (req, res) => {
         try { 
-            const user = await userDataMapper.showUserProfile(req.session.user[0]);
+            const user = await userDataMapper.showUserProfile(req.user.id);
             res.json(user.rows)
         } catch {
             res.status(500)
@@ -126,10 +116,9 @@ const userController = {
     },
 
     deleteUser: async (req, res) => {
-        console.log(req.session.user, "+++++++++++++++");
         try {
-            await userDataMapper.deleteUser(req.session.user[0]);
-            res.send ("Profil supprimé de la DB")
+            await userDataMapper.deleteUser(req.user.id);
+            res.json({message: "Votre profil a bien été supprimé"});
         } catch {
             res.status(500)
         }

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const auth = require("./middleware/auth")
 
 // We import all controllers
 const userController = require("./controllers/userController");
@@ -6,18 +7,24 @@ const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
 const uploadController = require("./middleware/multer");
 
+
 //USER ROUTES
+
 //User signup route
 router.post("/api/user/signup", userController.signup);
 //user login route
 router.post("/api/user/login", userController.login);
+
+router.get("/api/me", auth.authenticateToken, (req, res) => {
+    res.send(req.user)
+})
 //show user profile
-router.get("/api/user", userController.showUser);
+router.get("/api/user", auth.authenticateToken, userController.showUser);
 // user delete his own profile
-router.delete("/api/user/delete", userController.deleteUser),
+router.delete("/api/user/delete", auth.authenticateToken, userController.deleteUser),
 
 //ACTIVITY ROUTES
 //submit an activity , upload.single('picture')
-router.post("api/submitactivity", activityController.submitActivity);
+router.post("api/submitactivity", auth.authenticateToken, activityController.submitActivity);
 
 module.exports = router;
