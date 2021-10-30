@@ -9,7 +9,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({origin:"http://localhost:3000"}));
+app.use(cors({origin:"https://kidozanges.netlify.app/"}));
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
