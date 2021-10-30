@@ -91,15 +91,16 @@ const userController = {
             if (checkingPassword) {
 
                 if (!req.session.user) {
-                    req.session.user = [
-                        user.id = user.id,
-                        nickname = user.nickname,
-                        firstname = user.firstname,
-                        lastname = user.lastname,
-                        email = user.email
-                    ]
+                    req.session.user = {
+                        id: user.id,
+                        nickname: user.nickname,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email
+                    }
+                        
                 }
-                console.log(req.session.user);
+                //console.log(req.session.user);
                 return res.json({
                     user: req.session.user
                 });
@@ -118,7 +119,7 @@ const userController = {
 
     showUser: async (req, res) => {
         try { 
-            const user = await userDataMapper.showUserProfile(req.session.user[0]);
+            const user = await userDataMapper.showUserProfile(req.session.user.id);
             res.json(user.rows)
         } catch {
             res.status(500)
@@ -126,9 +127,9 @@ const userController = {
     },
 
     deleteUser: async (req, res) => {
-        console.log(req.session.user, "+++++++++++++++");
+        //console.log(req.session.user, "+++++++++++++++");
         try {
-            await userDataMapper.deleteUser(req.session.user[0]);
+            await userDataMapper.deleteUser(req.session.user.id);
             res.send ("Profil supprimé de la DB")
         } catch {
             res.status(500)
