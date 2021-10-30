@@ -5,7 +5,6 @@ const adminDataMapper = require("../datamappers/adminDataMapper");
 const activityController = {
 
     submitActivity: async (req, res) => {
-        console.log("je suis dans le controller submitActivy")
         try {
             console.log(req.body)
             const errors = [];
@@ -16,16 +15,16 @@ const activityController = {
                 town,
                 free
             } = req.body;
-            const slug = description.slice(30) + '...';
-            const userId = req.session.user[0];
-            console.log (userId, "+++++++++");
+            const slug = description.slice(0,30) + '...';
+            const userId = req.session.user.id;
+            //console.log (userId, "+++++++++");
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
 
                 res.json({
                     error: 'Merci de compléter tous les champs!'
                 });
-                throw new Error("Proposition échouée, merci de recommencer");
+                throw new Error("Merci de compléter tous les champs!");
             };
 
             //send data in DB.
