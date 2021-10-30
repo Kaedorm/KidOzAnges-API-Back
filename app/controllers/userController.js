@@ -99,7 +99,7 @@ const userController = {
                         email = user.email
                     ]
                 }
-                console.log(req.session.user);
+                //console.log(req.session.user);
                 return res.json({
                     user: req.session.user
                 });
@@ -126,7 +126,7 @@ const userController = {
     },
 
     deleteUser: async (req, res) => {
-        console.log(req.session.user, "+++++++++++++++");
+        //console.log(req.session.user, "+++++++++++++++");
         try {
             await userDataMapper.deleteUser(req.session.user[0]);
             res.send ("Profil supprimé de la DB")
