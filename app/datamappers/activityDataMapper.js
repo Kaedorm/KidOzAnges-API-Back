@@ -18,7 +18,7 @@ const activityDataMapper = {
     insertPicture: async(filename, activityId) => {
         try{
             const query = {
-                text: `INSERT INTO picture(picture_url, activity_id) VALUES ($1);`,
+                text: `INSERT INTO picture(url, activity_id) VALUES ($1, $2);`,
                 values: [filename, activityId]
             }
             return await pool.query(query)
