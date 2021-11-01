@@ -7,7 +7,7 @@ const auth = {
     },
 
     authenticateToken: (req, res, next) => {
-        const authHeader = req.headers["authorization"];
+        const authHeader = req.headers.authorization;
         const token = authHeader && authHeader.split(' ')[1];
         // if there's no token we send an Unauthorized connection
         if(!token) {
