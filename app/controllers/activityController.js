@@ -24,7 +24,7 @@ const activityController = {
                 res.json({
                     error: 'Merci de compléter tous les champs!'
                 });
-                throw new Error("Merci de compléter tous les champs!");
+                
             };
             //send data in DB.
             const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
