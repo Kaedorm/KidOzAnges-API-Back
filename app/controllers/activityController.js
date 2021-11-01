@@ -6,6 +6,7 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
+            
             const {
                 title,
                 description,
