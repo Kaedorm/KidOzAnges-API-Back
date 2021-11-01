@@ -92,7 +92,6 @@ const userController = {
                 const accessToken = auth.generateAccessToken(user)
                 // we send infos to the front application
                 res.json({
-                    user,
                     accessToken
                 })
 

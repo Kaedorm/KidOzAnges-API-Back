@@ -6,7 +6,8 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
-            
+            console.log(req.body)
+            console.log(req.user)
             const {
                 title,
                 description,
@@ -20,17 +21,17 @@ const activityController = {
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
 
-                res.json({
+                return res.json({
                     error: 'Merci de compléter tous les champs!'
                 });
-                throw new Error("Merci de compléter tous les champs!");
+                
             };
             //send data in DB.
             const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
             // we take the id of the activity juste posted
-            const activityId = newActivity.rows[0].id
-            // we insert picture path in database with the id of the activity just posted
-            await activityDataMapper.insertPicture(req.file.path, activityId)
+            // const activityId = newActivity.rows[0].id
+            // // we insert picture path in database with the id of the activity just posted
+            // await activityDataMapper.insertPicture(req.file.path, activityId)
             //send response to the front.
             res.status(200).json({message: "Nous vous remercions de votre proposition, celle-ci sera examinée avec le plus grand soin."})
 
