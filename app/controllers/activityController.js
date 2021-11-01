@@ -15,7 +15,7 @@ const activityController = {
                 town,
                 free
             } = req.body;
-            // const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
+            const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
             const userId = req.user.id;
             
             //check if all fields are full.
