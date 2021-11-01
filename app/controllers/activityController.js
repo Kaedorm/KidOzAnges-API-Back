@@ -21,7 +21,7 @@ const activityController = {
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
 
-                res.json({
+                return res.json({
                     error: 'Merci de compléter tous les champs!'
                 });
                 
