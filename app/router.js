@@ -26,6 +26,6 @@ router.delete("/api/user/delete", auth.authenticateToken, userController.deleteU
 //ACTIVITY ROUTES
 
 //submit an activity , 
-router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
+router.post("/api/submitactivity", auth.authenticateToken, /*upload.single('picture'),*/ activityController.submitActivity);
 
 module.exports = router;
