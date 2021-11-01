@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/O-clock-Valhalla/projet-03-kid-oz-anges#readme",
   "dependencies": {
+    "aws-sdk": "^2.1018.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

@@ -25,7 +25,17 @@ const activityDataMapper = {
         }catch(error) {
             console.error(error)
         }
-    }
+    },
+
+/*     findbestActivities: async ()=> {
+        try {
+            const query = {
+                text: 'SELECT * FROM "activity" ORDER BY RATE DESC LIMIT 4'
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    } */
 };
 
 module.exports = activityDataMapper;

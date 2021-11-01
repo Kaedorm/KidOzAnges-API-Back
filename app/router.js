@@ -28,4 +28,7 @@ router.delete("/api/user/delete", auth.authenticateToken, userController.deleteU
 //submit an activity , 
 router.post("/api/submitactivity", upload.single('picture'), activityController.submitActivity);
 
+//display the best rated activities
+//router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
+
 module.exports = router;
