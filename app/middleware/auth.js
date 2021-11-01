@@ -13,7 +13,7 @@ const auth = {
         if(!token) {
             console.log("il n'y a pas de token")
             return res.sendStatus(401);
-        } // else we verify thath the token match with the users who generates the token
+        } // else we verify that the token match with the users who generates the token
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if(err) {
                 return res.sendStatus(401);
