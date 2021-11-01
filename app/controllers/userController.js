@@ -91,7 +91,7 @@ const userController = {
                 delete user.password
                 const accessToken = auth.generateAccessToken(user)
                 // we send infos to the front application
-                res.send({
+                res.json({
                     accessToken
                 })
 
