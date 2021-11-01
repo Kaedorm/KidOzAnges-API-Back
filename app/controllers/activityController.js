@@ -6,7 +6,7 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
-            const errors = [];
+            
             const {
                 title,
                 description,
@@ -15,7 +15,7 @@ const activityController = {
                 free
             } = req.body;
             const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
-            const userId = 10;
+            const userId = req.user.id;
             
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
