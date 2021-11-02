@@ -102,7 +102,6 @@ const userController = {
             }
         } catch (error) {
             res.status(500);
-
         }
     },
 
