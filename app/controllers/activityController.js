@@ -39,7 +39,7 @@ const activityController = {
                 free
             } = req.body;
             const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
-            const userId = req.user.id;
+            const userId = Number(req.user.id);
             
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
@@ -50,7 +50,7 @@ const activityController = {
                 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
+            const newActivity = await activityDataMapper.submitActivity(title, description, slug, Number(zipcode), town, free, userId);
             // we take the id of the activity juste posted
             // const activityId = newActivity.rows[0].id
             // // we insert picture path in database with the id of the activity just posted
