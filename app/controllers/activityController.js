@@ -12,7 +12,8 @@ const activityController = {
 
     uploadPicture: async (req, res) => {
     const file = req.file
-    console.log(file)
+    //console.log(file,"+++++++++++++++++++");
+    //console.log(req.body, "------------------");
 
     const result = await uploadFile(file)
     await unlinkFile(file.path) //delete picture in app
@@ -29,8 +30,8 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
-            console.log(req.body)
-            console.log(req.user)
+            console.log(req.file, "==========")
+            //console.log(req.user)
             const {
                 title,
                 description,
@@ -42,7 +43,7 @@ const activityController = {
             const userId = req.user.id;
             
             //check if all fields are full.
-            if (!title || !description || !zipcode || !free) {
+            if (!title || !description || !zipcode || !town || !free) {
 
                 return res.json({
                     error: 'Merci de compléter tous les champs!'
@@ -55,7 +56,8 @@ const activityController = {
             const activityId = newActivity.rows[0].id
             // we insert picture path in database with the id of the activity just posted
             await activityDataMapper.insertPicture(req.file.path, activityId);
-            activityController.uploadPicture(req, res); //send the picture to AWS and delete it from public storage.
+
+            //!! activityController.uploadPicture(req, res); //send the picture to AWS and delete it from public storage.
             //send response to the front.
             res.status(200).json({message: "Nous vous remercions de votre proposition, celle-ci sera examinée avec le plus grand soin."})
 
