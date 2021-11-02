@@ -10,22 +10,22 @@ const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
 
-    uploadPicture: (req, res) => {
-    const file = req.file
-    console.log(file)
+    // uploadPicture: (req, res) => {
+    // const file = req.file
+    // console.log(file)
 
-    const result = await uploadFile(file)
-    await unlinkFile(file.path) //delete picture in app
-    console.log(result)
-    },
+    // const result = await uploadFile(file)
+    // await unlinkFile(file.path) //delete picture in app
+    // console.log(result)
+    // },
 
-    getPicture: (req, res) => {
-    console.log(req.params)
-    const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
-    const readStream = getFileStream(key)
+    // getPicture: (req, res) => {
+    // console.log(req.params)
+    // const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
+    // const readStream = getFileStream(key)
 
-    readStream.pipe(res)// send the stream to the front
-    },
+    // readStream.pipe(res)// send the stream to the front
+    // },
 
     submitActivity: async (req, res) => {
         try {
