@@ -13,18 +13,17 @@ const s3 = new S3({
     secretAccessKey
 })
 //uploads a file to s3 
-async function uploadFile(file) { 
+function uploadFile(file) { 
     try {
-        const filestream = fs.createReadStream(file.path)
-        console.log(filestream, "xxxxxxxxxxxxx");
-        console.log(file.data)
+        const filestream = fs.createReadStream(file.path);
+        //console.log(filestream, "xxxxxxxxxxxxx");
         const uploadParams = {
-            bucketName: bucketName,
-            body: file.data,
-            key: file.filename,
+            Bucket: bucketName,
+            Body: filestream,
+            Key: file.filename,
         }
 
-        return await s3.upload(uploadParams).promise()
+        return s3.upload(uploadParams).promise()
     } catch (error) {
        throw new Error(`S3 upload error: ${error.message}`)
     }
