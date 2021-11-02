@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(cors({
-  origin: "https://kidozanges.netlify.app/",
+  origin: "https://kidozanges.netlify.app",
   credentials:true,
   allowedHeaders: ["Authorization", "Content-Type"]
 }));
