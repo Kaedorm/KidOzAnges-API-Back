@@ -29,6 +29,8 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
+            console.log(req.body)
+            console.log(req.user)
             const {
                 title,
                 description,
@@ -42,10 +44,10 @@ const activityController = {
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
 
-                res.json({
+                return res.json({
                     error: 'Merci de compléter tous les champs!'
                 });
-                throw new Error("Merci de compléter tous les champs!");
+                
             };
             //send data in DB.
             const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);

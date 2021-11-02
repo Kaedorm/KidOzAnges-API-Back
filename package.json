@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/O-clock-Valhalla/projet-03-kid-oz-anges/issues"
   },
-  "homepage": "https://github.com/O-clock-Valhalla/projet-03-kid-oz-anges#readme",
+  "homepage": "",
   "dependencies": {
     "aws-sdk": "^2.1018.0",
     "bcrypt": "^5.0.1",
