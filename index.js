@@ -6,7 +6,6 @@ const path = require("path")
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
 
-const { uploadFile} = require("./s3")
 
 
 const app = express();
@@ -27,4 +26,3 @@ app.use(router);
 app.listen(PORT, () => {
     console.log(`App listening on ${PORT}`);
 });
-
