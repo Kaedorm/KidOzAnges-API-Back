@@ -10,7 +10,7 @@ const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
 
-    uploadPicture: (req, res) => {
+    uploadPicture: async (req, res) => {
     const file = req.file
     console.log(file)
 
@@ -42,7 +42,7 @@ const activityController = {
             const userId = req.user.id;
             
             //check if all fields are full.
-            if (!title || !description || !zipcode || !town || !free) {
+            if (!title || !description || !zipcode || !free) {
 
                 return res.json({
                     error: 'Merci de compléter tous les champs!'
