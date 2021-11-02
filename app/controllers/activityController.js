@@ -6,8 +6,8 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
-            console.log(req.body)
-            console.log(req.user)
+            console.log(req)
+            //console.log(req.user)
             const {
                 title,
                 description,
