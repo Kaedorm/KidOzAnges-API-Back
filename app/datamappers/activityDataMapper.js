@@ -2,6 +2,7 @@ const pool = require("../database");
 
 const activityDataMapper = {
 
+
     getOneActivity: async(activityId) => {
         const query = {
             text: `SELECT id, description, town, zipcode, title, free FROM activity WHERE id=$1;`,
@@ -19,6 +20,7 @@ const activityDataMapper = {
             const query = {
                 text: 'INSERT INTO "activity" (title, description,slug, town, zipcode, free, user_Id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, title, description, slug, zipcode, free, town, user_Id',
                 values: [title, description,slug, town, zipcode, free, user_Id]    
+
             };
             return await pool.query(query);
         
