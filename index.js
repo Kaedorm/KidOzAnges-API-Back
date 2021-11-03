@@ -6,8 +6,6 @@ const path = require("path")
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
 
-
-
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -18,7 +16,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors({
   origin: ["https://kidozanges.netlify.app", "http://localhost:3000"],
   credentials:true,
-  allowedHeaders: ["authorization", "Content-Type"]
+  allowedHeaders: ["authorization", "Content-Type"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
 }));
 
 app.use(router);

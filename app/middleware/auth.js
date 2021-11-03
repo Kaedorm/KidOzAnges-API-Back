@@ -18,6 +18,7 @@ const auth = {
         } // else we verify that the token match with the users who generates the token
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if(err) {
+                console.log("il y a une erreur", err)
                 return res.sendStatus(401);
             }
             req.user = user;
