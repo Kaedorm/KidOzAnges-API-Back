@@ -11,19 +11,19 @@ const unlinkFile = util.promisify(fs.unlink)
 const activityController = {
 
     activityDetails: async(req, res) => {
-        const activityId = req.params.id;
+        const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
             if(!result) {
                 throw new Error("This activity doesn't exist")
             }
             const activity = result.rows[0];
-            res.json({
+            return res.json({
                 activity
             })
             
         } catch(error) {
-
+            res.status(500)
         }
     },
 
