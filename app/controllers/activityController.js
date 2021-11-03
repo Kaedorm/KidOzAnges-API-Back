@@ -67,7 +67,7 @@ const activityController = {
                 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, slug, Number(zipcode), town, free, Number(userId));
+            const newActivity = await activityDataMapper.submitActivity(title, description, town, slug, Number(zipcode), free, Number(userId));
             // we take the id of the activity juste posted
             // const activityId = newActivity.rows[0].id
             // // we insert picture path in database with the id of the activity just posted
