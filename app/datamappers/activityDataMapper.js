@@ -4,7 +4,7 @@ const activityDataMapper = {
 
     getOneActivity: async(activityId) => {
         const query = {
-            text: `SELECT id, descrtiption, town, zipcode, title FROM activity WHERE id=$1;`,
+            text: `SELECT id, description, town, zipcode, title FROM activity WHERE id=$1;`,
             values: [activityId]
         }
         try {

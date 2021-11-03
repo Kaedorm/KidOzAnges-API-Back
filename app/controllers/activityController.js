@@ -18,9 +18,9 @@ const activityController = {
             if(!result) {
                 throw new Error("This activity doesn't exist")
             }
-            const activity = result.rows[0];
-            return res.json({
-                activity
+            
+            res.json({
+                activity: result.rows[0]
             })
             
         } catch(error) {
