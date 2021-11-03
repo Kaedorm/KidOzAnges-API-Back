@@ -10,6 +10,23 @@ const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
 
+    activityDetails: (req, res) => {
+        const activityId = req.params.id;
+        try {
+            const result = await activityDataMapper.getOneActivity(activityId);
+            if(!result) {
+                throw new Error("This activity doesn't exist")
+            }
+            const activity = result.rows[0];
+            res.json({
+                activity
+            })
+            
+        } catch(error) {
+
+        }
+    },
+
     // uploadPicture: (req, res) => {
     // const file = req.file
     // console.log(file)
@@ -50,7 +67,7 @@ const activityController = {
                 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, slug, Number(zipcode), town, free, userId);
+            const newActivity = await activityDataMapper.submitActivity(title, description, slug, Number(zipcode), town, Boolean(free), userId);
             // we take the id of the activity juste posted
             // const activityId = newActivity.rows[0].id
             // // we insert picture path in database with the id of the activity just posted
@@ -64,6 +81,8 @@ const activityController = {
             res.status(500);
         };
     },
+
+    
 
 /*     displayTopRatedActivity: async (req, res)=>{
         try {

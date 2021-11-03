@@ -2,6 +2,18 @@ const pool = require("../database");
 
 const activityDataMapper = {
 
+    getOneActivity: (activityId) => {
+        const query = {
+            text: `SELECT id, descrtiption, town, zipcode, title FROM activity WHERE id=$1;`,
+            values: [activityId]
+        }
+        try {
+            return await pool.query(query);
+        } catch (error) {
+            res.sendStatus(500);
+        }
+    },
+
     submitActivity: async(title, description,slug,zipcode,free, user_Id) =>{
         try{
             const query = {
