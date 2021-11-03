@@ -11,6 +11,7 @@ const unlinkFile = util.promisify(fs.unlink)
 const activityController = {
 
     activityDetails: async(req, res) => {
+        console.log(req.params)
         const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
