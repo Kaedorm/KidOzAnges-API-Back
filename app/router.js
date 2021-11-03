@@ -5,9 +5,9 @@ const auth = require("./middleware/auth")
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
-//const upload = require("./middleware/multer");
-const multer = require('multer')
-const upload = multer({ dest: './public' })
+const upload = require("./middleware/multer");
+//const multer = require('multer')
+//const upload = multer({ dest: './public' })
 
 //USER ROUTES
 
