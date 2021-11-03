@@ -46,7 +46,7 @@ const activityController = {
 
     submitActivity: async (req, res) => {
         try {
-            console.log(req)
+            console.log(req.body)
             //console.log(req.user)
             const {
                 title,
