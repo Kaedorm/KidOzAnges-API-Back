@@ -10,18 +10,33 @@ const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
 
+
     getPicture: (req, res) => {
     console.log(req.params)
     const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
     const readStream = getFileStream(key)
+    },
 
-    readStream.pipe(res)// send the stream to the front
+    activityDetails: async(req, res) => {
+        console.log(req.params)
+        const activityId = Number(req.params.id);
+        try {
+            const result = await activityDataMapper.getOneActivity(activityId);
+            if(!result) {
+                throw new Error("This activity doesn't exist")
+            }
+            
+            res.json({
+                activity: result.rows[0]
+            })
+            
+        } catch(error) {
+            res.status(500)
+        }
     },
 
     submitActivity: async (req, res) => {
         try {
-            //console.log(req.file, "==========")
-            //console.log(req.user)
             const {
                 title,
                 description,
@@ -30,7 +45,7 @@ const activityController = {
                 free
             } = req.body;
             const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
-            const userId = req.user.id;
+            const userId = Number(req.user.id);
             
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
@@ -41,8 +56,9 @@ const activityController = {
                 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, slug, zipcode, town, free, userId);
+            const newActivity = await activityDataMapper.submitActivity(title, description, town, slug, Number(zipcode), free, Number(userId));
             // we take the id of the activity juste posted
+
             const activityId = newActivity.rows[0].id
             
             //!activityController.uploadPicture(req, res); //send the picture to AWS and delete it from public storage.
@@ -54,6 +70,7 @@ const activityController = {
             
             // we insert picture path in database with the id of the activity just posted
             await activityDataMapper.insertPicture(result.Location, activityId);
+
             //send response to the front.
             res.status(200).json({message: "Nous vous remercions de votre proposition, celle-ci sera examinée avec le plus grand soin."})
 
@@ -62,6 +79,8 @@ const activityController = {
             res.status(500);
         };
     },
+
+    
 
 /*     displayTopRatedActivity: async (req, res)=>{
         try {
