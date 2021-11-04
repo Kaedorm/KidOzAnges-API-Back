@@ -41,6 +41,10 @@ const activityDataMapper = {
         }
     },
 
+    commentActivity: async() => {
+        
+    }
+
 /*     findbestActivities: async ()=> {
         try {
             const query = {

@@ -80,6 +80,10 @@ const activityController = {
         };
     },
 
+    commentActivity: (req, res) => {
+        
+    }
+
     
 
 /*     displayTopRatedActivity: async (req, res)=>{
