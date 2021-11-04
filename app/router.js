@@ -6,6 +6,7 @@ const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
 const upload = require("./middleware/multer");
+const { authenticateToken } = require("./middleware/auth");
 //const multer = require('multer')
 //const upload = multer({ dest: './public' })
 
@@ -26,7 +27,7 @@ router.delete("/api/user/delete", auth.authenticateToken, userController.deleteU
 
 //ACTIVITY ROUTES
 router.get("/api/activity/:id", activityController.activityDetails)
-router.post("/api/activity/:id/comment", activityController.commentActivity)
+router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity)
 //submit an activity , 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 

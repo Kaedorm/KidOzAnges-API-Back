@@ -80,8 +80,29 @@ const activityController = {
         };
     },
 
-    commentActivity: (req, res) => {
+    commentActivity: async(req, res) => {
+        try {
+            const activityId = Number(req.params.id);
+            const userId = Number(req.user.id);
+            const {title, description, rate} = req.body;
+            if(rate) {
+                const result = await activityDataMapper.rateActivity(rate)
+                
+                const rateId = result.rows[0].id;
+                await activityDataMapper.rateActivity(userId, activityId);
+                await activityDataMapper.activityRating(Number(rateId), activityId);
+                
+            };
+            const newComment = await activityDataMapper.commentActivity(title, description, userId, activityId);
+            res.json({
+                newComment: newComment.rows[0]
+            })            
+        } catch(err) {
+            console.error(err)
+        }
         
+
+
     }
 
     
