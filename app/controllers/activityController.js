@@ -85,14 +85,14 @@ const activityController = {
             const activityId = Number(req.params.id);
             const userId = Number(req.user.id);
             const {title, description, rate} = req.body;
-            if(rate) {
+            if(rate && rate > 0 && rate < 6) {
                 const result = await activityDataMapper.rateActivity(rate)
                 
                 const rateId = result.rows[0].id;
-                await activityDataMapper.rateActivity(userId, activityId);
+                await activityDataMapper.insertRate(userId, activityId);
                 await activityDataMapper.activityRating(Number(rateId), activityId);
                 
-            };
+            } 
             const newComment = await activityDataMapper.commentActivity(title, description, userId, activityId);
             res.json({
                 newComment: newComment.rows[0]
