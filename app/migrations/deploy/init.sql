@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 
 CREATE TABLE IF NOT EXISTS "activity" (
   "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "title" TEXT NOT NULL UNIQUE,
+  "title" TEXT NOT NULL,
   "description" TEXT NOT NULL,
   "slug" TEXT,
   "zipcode" INT NOT NULL,
@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS "rating" (
 CREATE TABLE IF NOT EXISTS "user_rates_activity" (
   "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,
   "activity_id" INT NOT NULL REFERENCES "activity"("id") ON DELETE CASCADE,
+  PRIMARY KEY("user_id", "activity_id"),
   "created_at" TIMESTAMPTZ DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ DEFAULT NOW()
 );
