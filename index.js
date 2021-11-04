@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const router = require("./app/router");
 const cors = require("cors");
-const path = require("path")
-const jwt = require("jsonwebtoken");
+//const path = require("path")
+//const jwt = require("jsonwebtoken");
 const session = require("express-session");
 
 const app = express();

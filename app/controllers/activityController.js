@@ -48,7 +48,7 @@ const activityController = {
             const userId = Number(req.user.id);
             
             //check if all fields are full.
-            if (!title || !description || !zipcode || !town || !free) {
+            if (!title || !description || !zipcode || !town || !free || !picture) {
 
                 return res.json({
                     error: 'Merci de compléter tous les champs!'
@@ -57,7 +57,7 @@ const activityController = {
             };
             //send data in DB.
             const newActivity = await activityDataMapper.submitActivity(title, description, town, slug, Number(zipcode), free, Number(userId));
-            // we take the id of the activity juste posted
+            // we take the id of the activity just posted
 
             const activityId = newActivity.rows[0].id
             
