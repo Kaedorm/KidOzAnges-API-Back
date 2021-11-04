@@ -84,7 +84,7 @@ const activityController = {
         try {
             const activityId = Number(req.params.id);
             const userId = Number(req.user.id);
-            const {title, description, rate} = req.body;
+            const {title, comment, rate} = req.body;
             if(rate && rate > 0 && rate < 6) {
                 const result = await activityDataMapper.rateActivity(rate)
                 
@@ -93,7 +93,7 @@ const activityController = {
                 await activityDataMapper.activityRating(Number(rateId), activityId);
                 
             } 
-            const newComment = await activityDataMapper.commentActivity(title, description, userId, activityId);
+            const newComment = await activityDataMapper.commentActivity(title, comment, userId, activityId);
             res.json({
                 newComment: newComment.rows[0]
             })            
