@@ -6,7 +6,7 @@ const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
 const upload = require("./middleware/multer");
-const { authenticateToken } = require("./middleware/auth");
+
 //const multer = require('multer')
 //const upload = multer({ dest: './public' })
 

@@ -29,10 +29,12 @@ const activityController = {
 
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             console.log(comments.rows)
+            const avgRating = await activityDataMapper.getAverageRating(activityId)
             
             res.json({
                 activity: result.rows[0],
-                comments:  comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire"
+                comments:  comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire",
+                rate: avgRating.rows.length > 0 ? avgRating.rows[0] : "Cette activité ne possède pas encore de note"
             })
             
         } catch(error) {
