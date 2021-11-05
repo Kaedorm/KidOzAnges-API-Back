@@ -105,9 +105,6 @@ const activityController = {
         } catch(err) {
             console.error(err)
         }
-        
-
-
     }
 
     
