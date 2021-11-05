@@ -54,17 +54,42 @@ const userDataMapper = {
     },
 
     showUserProfile: async (userId) => {
-        const query = {
-            text: "SELECT id, nickname, firstname, lastname, email, gender FROM \"user\" WHERE id=$1;",
-            values: [userId]
-        };
         try {
+            const query = {
+                text: "SELECT id, nickname, firstname, lastname, email, gender FROM \"user\" WHERE id=$1;",
+                values: [userId]
+            };
             return await pool.query(query);
 
         } catch (error) {
             console.error(error)
         }
     },
+
+    updateNickname: async (newNickname, userId) => {
+        try {
+            const query = {
+                text: `UPDATE "user" SET nickname = $1 WHERE id = $2`,
+                values: [newNickname, userId]
+            };
+            console.log("je suis dans la query");
+            return await pool.query(query);
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
+    updateEmail: async (newNickname, userId) => {
+        try {
+            const query = {
+                text: `UPDATE "user" SET email = $1 WHERE id = $2`,
+                values: [newNickname, userId]
+            };
+            return await pool.query(query);
+        } catch (error) {
+            console.error(error)
+        }
+    }
 };
 
 module.exports = userDataMapper;
