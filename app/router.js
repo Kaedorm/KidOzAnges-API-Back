@@ -24,6 +24,7 @@ router.get("/api/me", auth.authenticateToken, (req, res) => {
 router.get("/api/user", auth.authenticateToken, userController.showUser);
 // user delete his own profile
 router.delete("/api/user/delete", auth.authenticateToken, userController.deleteUser),
+router.patch("/api/user/update", auth.authenticateToken, userController.updateUser),
 
 //ACTIVITY ROUTES
 router.get("/api/activity/:id", activityController.activityDetails)

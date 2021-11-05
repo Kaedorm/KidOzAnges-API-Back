@@ -125,6 +125,19 @@ const userController = {
         } catch {
             res.status(500)
         }
+    },
+
+    updateUser: async (req, res) => {
+        try {
+            console.log("je suis dans le try");
+            console.log(req.body.nickname);
+            console.log(req.user);
+            await userDataMapper.updateUser(req.body.nickname,req.user.id)
+            res.json({message:"Votre profil a bien été mis à jour"})
+
+        } catch (error) {
+            res.status(500);
+        }
     }
 
 
