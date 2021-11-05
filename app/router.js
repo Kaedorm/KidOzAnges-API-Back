@@ -30,7 +30,7 @@ router.get("/api/activity/:id", activityController.activityDetails)
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 
 //ADMIN ROUTE
-router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin ); 
+router.get("/admin", adminController.displayToDoAdmin ); 
 
 //display the best rated activities
 //router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
