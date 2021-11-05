@@ -29,7 +29,7 @@ router.get("/api/activity/:id", activityController.activityDetails)
 //submit an activity , 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 
-//ADMIN ROUTE
+//ADMIN ROUTE //TODO RAJOUTER AUTH
 router.get("/admin", adminController.displayToDoAdmin ); 
 router.delete("/admin/deletecomment", adminController.deleteComment);
 router.patch("/admin/updateactivity", adminController.validateActivity);
