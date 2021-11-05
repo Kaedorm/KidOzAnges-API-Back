@@ -32,7 +32,7 @@ router.post("/api/activity/:id/comment", auth.authenticateToken, activityControl
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 
 //ADMIN ROUTE
-router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin ); 
+router.get("/admin", adminController.displayToDoAdmin ); 
 
 //display the best rated activities
 //router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
