@@ -22,12 +22,17 @@ const activityController = {
         const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
+            console.log(result)
             if(!result) {
                 throw new Error("This activity doesn't exist")
             }
+
+            const comments = await activityDataMapper.getCommentsOfActivity(activityId);
+            console.log(comments.rows)
             
             res.json({
-                activity: result.rows[0]
+                activity: result.rows[0],
+                comments:  comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire"
             })
             
         } catch(error) {
@@ -42,7 +47,7 @@ const activityController = {
                 description,
                 zipcode,
                 town,
-                free
+                free,
             } = req.body;
             const slug = description.slice(0,30) + '...'; // we are taking the thirty first words of the description 
             const userId = Number(req.user.id);
@@ -85,7 +90,7 @@ const activityController = {
             const activityId = Number(req.params.id);
             const userId = Number(req.user.id);
             const {title, description, rate} = req.body;
-            if(rate) {
+            if(rate > 0 && rate < 6) {
                 const result = await activityDataMapper.rateActivity(rate)
                 
                 const rateId = result.rows[0].id;
