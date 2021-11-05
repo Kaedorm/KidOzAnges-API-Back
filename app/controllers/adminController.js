@@ -31,7 +31,7 @@ const adminController = {
         }
     },
 
-    validate: async (req, res) => {
+    validateActivity: async (req, res) => {
         try {
             if (confirm) { //TODO PRENDRE LA BONNE INFO SELON YANIS
                 await adminDataMapper.validateActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON YANIS
@@ -41,7 +41,18 @@ const adminController = {
         } catch (error) {
             res.status(500).json
         }
-    }
-}
+    },
+
+    deleteActivity: async (req, res) => {
+        try {
+            await adminDataMapper.deleteActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON YANIS
+        } catch (error) {
+            res.status(500).json({
+                message: "impossible d'effacer ce commentaire."
+            });
+        }
+    },
+
+}; 
 
 module.exports = adminController;

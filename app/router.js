@@ -31,8 +31,12 @@ router.post("/api/submitactivity", auth.authenticateToken, upload.single('pictur
 
 //ADMIN ROUTE
 router.get("/admin", adminController.displayToDoAdmin ); 
+router.delete("/admin/deletecomment", adminController.deleteComment);
+router.patch("/admin/updateactivity", adminController.validateActivity);
+router.delete("activity/deleteactivity", adminController.deleteActivity);
+//delete profile
 
-//display the best rated activities
+
 //router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
 
 module.exports = router;
