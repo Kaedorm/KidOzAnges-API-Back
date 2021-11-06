@@ -48,7 +48,7 @@ const adminController = {
             await adminDataMapper.deleteActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON YANIS
         } catch (error) {
             res.status(500).json({
-                message: "impossible d'effacer ce commentaire."
+                message: "impossible d'effacer cette activité."
             });
         }
     },

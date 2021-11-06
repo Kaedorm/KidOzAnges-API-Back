@@ -15,6 +15,7 @@ const activityController = {
     console.log(req.params)
     const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
     const readStream = getFileStream(key)
+    readStream.pipe(res) //send the image into the res object.
     },
 
     activityDetails: async(req, res) => {
@@ -81,17 +82,6 @@ const activityController = {
     },
 
     
-
-/*     displayTopRatedActivity: async (req, res)=>{
-        try {
-            const bestactivities = await activityDataMapper.findbestActivities();
-            res.json({bestactivities});
-
-        } catch (error) {
-            console.log(error)
-            res.status(500);
-        }
-    } */
 
 };
 
