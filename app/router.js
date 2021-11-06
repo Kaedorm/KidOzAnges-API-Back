@@ -31,7 +31,7 @@ router.patch("/api/user/updateemail", auth.authenticateToken, userController.upd
 router.get("/api/activity/:id", activityController.activityDetails)
 router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity)
 //submit an activity , 
-router.post("/api/submitactivity", upload.single('picture'), activityController.submitActivity);
+router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 
 //ADMIN ROUTE
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
