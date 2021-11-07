@@ -117,6 +117,18 @@ const activityDataMapper = {
         } catch (error) {
             console.error(error)
         }
+    },
+
+    searchActivity: async(town, free) => {
+        try {
+            const query = {
+                text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.town=$1 AND activity.free=$2;`,
+                values: [town, free]
+            }
+            return pool.query(query);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 /*     findbestActivities: async ()=> {
