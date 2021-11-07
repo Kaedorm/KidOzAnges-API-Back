@@ -5,7 +5,7 @@ const adminDataMapper = require("../datamappers/adminDataMapper");
 //new requires for AWS
 const { uploadFile, getFileStream } = require('../../s3')
 const fs = require('fs')
-const util = require('util')
+const util = require('util');
 const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
@@ -106,6 +106,18 @@ const activityController = {
             })            
         } catch(err) {
             console.error(err)
+        }
+    },
+
+    searchActivity: async(req, res) => {
+        try {
+            const {town, free} = req.body;
+            const result = await activityDataMapper.searchActivity(town, free);
+            res.json({
+                activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+            })
+        } catch (error) {
+            res.status(500)
         }
     }
 
