@@ -126,7 +126,7 @@ const activityDataMapper = {
                 text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.town=$1 AND activity.free=$2;`,
                 values: [town, free]
             }
-            return pool.query(query);
+            return await pool.query(query);
         } catch (error) {
             console.error(error)
         }
