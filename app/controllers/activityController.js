@@ -74,7 +74,7 @@ const activityController = {
             const file = req.file
             //console.log(file,"+++++++++++++++++++");
             const result = await uploadFile(file)
-            console.log(result, "zzzzzzzzzzzzz");
+            //console.log(result, "zzzzzzzzzzzzz");
             await unlinkFile(file.path) //delete picture in app
             
             // we insert picture path in database with the id of the activity just posted
