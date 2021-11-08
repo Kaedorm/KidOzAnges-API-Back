@@ -9,7 +9,6 @@ const upload = require("./middleware/multer");
 
 
 //USER ROUTES
-
 //User signup route
 router.post("/api/user/signup", userController.signup);
 //user login route

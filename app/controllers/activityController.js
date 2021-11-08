@@ -26,19 +26,18 @@ const activityController = {
         const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
-            //console.log(result.rows)
-            console.log(result.rows[0].url)
-            // const readStream = getFileStream("picture-1636364869914-382003325.jpg");
-            // readStream.pipe(res);
-
-            if (!result) {
+          
+            console.log(result.rows)
+            if(!result) {
                 throw new Error("This activity doesn't exist")
             }
 
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             //console.log(comments.rows)
             const avgRating = await activityDataMapper.getAverageRating(activityId)
-            //console.log(avgRating.rows)
+
+            console.log(avgRating.rows)
+            
 
             res.json({
                 activity: result.rows[0],
