@@ -126,7 +126,7 @@ const activityDataMapper = {
                 text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.town=$1 AND activity.free=$2;`,
                 values: [town, free]
             }
-            return pool.query(query);
+            return await pool.query(query);
         } catch (error) {
             console.error(error)
         }
@@ -141,17 +141,19 @@ const activityDataMapper = {
         } catch (error) {
             console.error(error)
         }
-    }
+    },
 
-/*     findbestActivities: async ()=> {
+    findbestActivities: async ()=> {
         try {
             const query = {
-                text: 'SELECT * FROM "activity" ORDER BY RATE DESC LIMIT 4'
-            }
+                text: `SELECT activity_has_rating.activity_id,ROUND(AVG(rate),1) AS "moyenne",activity.title, activity.slug, activity.town FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id JOIN activity ON activity.id = activity_has_rating.activity_id GROUP BY activity_has_rating.activity_id
+                ORDER BY moyenne DESC LIMIT 4;`
+            };
+            return await pool.query(query);
         } catch (error) {
             console.error(error)
         }
-    } */
+    }
 };
 
 module.exports = activityDataMapper;
