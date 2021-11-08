@@ -20,7 +20,7 @@ const activityDataMapper = {
         try {
             const query = {
                 text: `SELECT comment.title, comment.description, "user".nickname FROM comment
-             q   JOIN "user" ON comment.user_id = "user".id
+                JOIN "user" ON comment.user_id = "user".id
                 JOIN activity ON comment.activity_id = activity.id
                 WHERE activity.id=$1`,
                 values: [activityId]
