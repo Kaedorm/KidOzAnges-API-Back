@@ -16,10 +16,6 @@ const upload = require("./middleware/multer");
 router.post("/api/user/signup", userController.signup);
 //user login route
 router.post("/api/user/login", userController.login);
-
-router.get("/api/me", auth.authenticateToken, (req, res) => {
-    res.send(req.user)
-})
 //show user profile
 router.get("/api/user", auth.authenticateToken, userController.showUser);
 // user delete his own profile
@@ -32,6 +28,7 @@ router.get("/api/activity/:id", activityController.activityDetails)
 router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity)
 //submit an activity , 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
+router.post("/api/searchactivity", activityController.searchActivity)
 
 //ADMIN ROUTE
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);

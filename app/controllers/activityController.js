@@ -5,7 +5,7 @@ const adminDataMapper = require("../datamappers/adminDataMapper");
 //new requires for AWS
 const { uploadFile, getFileStream } = require('../../s3')
 const fs = require('fs')
-const util = require('util')
+const util = require('util');
 const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
@@ -22,7 +22,7 @@ const activityController = {
         const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
-            console.log(result)
+            console.log(result.rows)
             if(!result) {
                 throw new Error("This activity doesn't exist")
             }
@@ -30,6 +30,7 @@ const activityController = {
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             console.log(comments.rows)
             const avgRating = await activityDataMapper.getAverageRating(activityId)
+            console.log(avgRating.rows)
             
             res.json({
                 activity: result.rows[0],
@@ -107,6 +108,18 @@ const activityController = {
             })            
         } catch(err) {
             console.error(err)
+        }
+    },
+
+    searchActivity: async(req, res) => {
+        try {
+            const {town, free} = req.body;
+            const result = await activityDataMapper.searchActivity(town, free);
+            res.json({
+                activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+            })
+        } catch (error) {
+            res.status(500)
         }
     }
 
