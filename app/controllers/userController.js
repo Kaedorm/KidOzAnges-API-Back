@@ -131,7 +131,7 @@ const userController = {
         try {
 ;
             await userDataMapper.updateNickname(req.body.nickname,req.user.id)
-            res.json({message:"Votre profil a bien été mis à jour"})
+            res.json({accessToken, message:"Votre profil a bien été mis à jour"})
 
         } catch (error) {
             res.status(500);
