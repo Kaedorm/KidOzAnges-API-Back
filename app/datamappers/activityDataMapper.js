@@ -106,7 +106,31 @@ const activityDataMapper = {
             console.error(error);
         }
 
+    },
+
+    getAverageRating: async(activityId) => {
+        try {
+            const query = {
+                text: `SELECT activity_id, AVG(rate) FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id WHERE activity_has_rating.activity_id = $1 GROUP BY activity_has_rating.activity_id;`,
+                values: [activityId]
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
+    searchActivity: async(town, free) => {
+        try {
+            const query = {
+                text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.town=$1 AND activity.free=$2;`,
+                values: [town, free]
+            }
+            return pool.query(query);
+        } catch (error) {
+            console.error(error)
+        }
     }
+
 /*     findbestActivities: async ()=> {
         try {
             const query = {

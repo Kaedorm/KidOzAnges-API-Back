@@ -5,7 +5,7 @@ const adminDataMapper = require("../datamappers/adminDataMapper");
 //new requires for AWS
 const { uploadFile, getFileStream } = require('../../s3')
 const fs = require('fs')
-const util = require('util')
+const util = require('util');
 const unlinkFile = util.promisify(fs.unlink)
 
 const activityController = {
@@ -29,10 +29,12 @@ const activityController = {
 
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             console.log(comments.rows)
+            const avgRating = await activityDataMapper.getAverageRating(activityId)
             
             res.json({
                 activity: result.rows[0],
-                comments:  comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire"
+                comments:  comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire",
+                rate: avgRating.rows.length > 0 ? avgRating.rows[0] : "Cette activité ne possède pas encore de note"
             })
             
         } catch(error) {
@@ -70,7 +72,7 @@ const activityController = {
             const file = req.file
             //console.log(file,"+++++++++++++++++++");
             const result = await uploadFile(file)
-            console.log(result, "zzzzzzzzzzzzz");
+            //console.log(result, "zzzzzzzzzzzzz");
             await unlinkFile(file.path) //delete picture in app
             
             // we insert picture path in database with the id of the activity just posted
@@ -104,6 +106,18 @@ const activityController = {
             })            
         } catch(err) {
             console.error(err)
+        }
+    },
+
+    searchActivity: async(req, res) => {
+        try {
+            const {town, free} = req.body;
+            const result = await activityDataMapper.searchActivity(town, free);
+            res.json({
+                activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+            })
+        } catch (error) {
+            res.status(500)
         }
     }
 
