@@ -130,8 +130,11 @@ const userController = {
     updateNickname: async (req, res) => {
         try {
 ;
-            await userDataMapper.updateNickname(req.body.nickname,req.user.id)
-            res.json({accessToken, message:"Votre profil a bien été mis à jour"})
+            const newNickname = req.body.nickname;
+            await userDataMapper.updateNickname(newNickname,req.user.id);
+            res.json({
+                newNickname, 
+                message:"Votre profil a bien été mis à jour"});
 
         } catch (error) {
             res.status(500);
@@ -140,9 +143,10 @@ const userController = {
 
     updateEmail: async(req, res) => {
         try {
-     
-            await userDataMapper.updateEmail(req.body.email, req.user.id)
+            const newEmail = req.body.email;
+            await userDataMapper.updateEmail(newEmail, req.user.id)
             res.json({
+                newEmail, 
                 message: "Votre profil a bien été mis à jour"
             })
 
