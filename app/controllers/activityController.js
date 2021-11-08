@@ -49,7 +49,7 @@ const activityController = {
             const userId = Number(req.user.id);
             
             //check if all fields are full.
-            if (!title || !description || !zipcode || !town || !free || !picture) {
+            if (!title || !description || !zipcode || !town || !free) {
 
                 return res.json({
                     error: 'Merci de compléter tous les champs!'

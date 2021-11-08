@@ -39,4 +39,3 @@ const adminDataMapper = {
 };
 
 module.exports = adminDataMapper;
-git
