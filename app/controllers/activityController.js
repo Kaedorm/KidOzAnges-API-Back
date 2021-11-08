@@ -140,10 +140,10 @@ const activityController = {
         }
     }, 
 
-    getArticles: async (req, res)=>{
+    getArticles: async (req, res) => {
         try {
-        const articles = await activityDataMapper.getArticles();   
-        res.json({articles}); 
+        const articles = await activityDataMapper.getArticles();
+        res.json(articles.rows); 
         } catch (error) {
             res.status(500)
         }

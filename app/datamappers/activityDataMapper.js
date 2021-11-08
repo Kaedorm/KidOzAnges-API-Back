@@ -20,7 +20,7 @@ const activityDataMapper = {
         try {
             const query = {
                 text: `SELECT comment.title, comment.description, "user".nickname FROM comment
-             q   JOIN "user" ON comment.user_id = "user".id
+                JOIN "user" ON comment.user_id = "user".id
                 JOIN activity ON comment.activity_id = activity.id
                 WHERE activity.id=$1`,
                 values: [activityId]
@@ -132,11 +132,12 @@ const activityDataMapper = {
         }
     },
 
-    getArticles: async()=> {
+    getArticles: async () => {
         try {
             const query = {
-                text: `SELECT article.title, article.description,FROM articles`
-            }
+                text: `SELECT article.title, article.description, "user".nickname FROM article JOIN "user" ON article.user_id="user".id`
+            };
+            return await pool.query(query);
         } catch (error) {
             console.error(error)
         }
