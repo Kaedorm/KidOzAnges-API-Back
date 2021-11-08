@@ -28,8 +28,8 @@ const activityController = {
             const result = await activityDataMapper.getOneActivity(activityId);
             //console.log(result.rows)
             console.log(result.rows[0].url)
-            const readStream = getFileStream("picture-1636364869914-382003325.jpg");
-            readStream.pipe(res);
+            // const readStream = getFileStream("picture-1636364869914-382003325.jpg");
+            // readStream.pipe(res);
 
             if (!result) {
                 throw new Error("This activity doesn't exist")
