@@ -131,40 +131,38 @@ const activityController = {
                 town,
                 free
             } = req.body;
-            
+
             const result = await activityDataMapper.searchActivity(town, free);
-            
+
             res.json({
                 activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
             })
         } catch (error) {
             res.status(500)
         }
-    }, 
+    },
 
     getArticles: async (req, res) => {
         try {
-        const articles = await activityDataMapper.getArticles();
-        res.json(articles.rows); 
+            const articles = await activityDataMapper.getArticles();
+            res.json(articles.rows);
         } catch (error) {
             res.status(500)
         }
+    },
+
+    displayTopRatedActivity: async (req, res) => {
+        try {
+            const bestactivities = await activityDataMapper.findbestActivities();
+            res.json({
+                bestactivities
+            });
+
+        } catch (error) {
+            console.log(error)
+            res.status(500);
+        }
     }
-
-
-
-
-
-    /*     displayTopRatedActivity: async (req, res)=>{
-            try {
-                const bestactivities = await activityDataMapper.findbestActivities();
-                res.json({bestactivities});
-
-            } catch (error) {
-                console.log(error)
-                res.status(500);
-            }
-        } */
 
 };
 

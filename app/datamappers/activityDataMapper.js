@@ -1,4 +1,3 @@
-const { Polly } = require("aws-sdk");
 const pool = require("../database");
 
 const activityDataMapper = {
@@ -6,28 +5,13 @@ const activityDataMapper = {
 
     getOneActivity: async(activityId) => {
         const query = {
-            text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.id=$1;`,
+            text: `SELECT id, description, town, zipcode, title, free FROM activity WHERE id=$1;`,
             values: [activityId]
         }
         try {
             return await pool.query(query);
         } catch (error) {
             res.sendStatus(500);
-        }
-    },
-
-    getCommentsOfActivity: async(activityId) => {
-        try {
-            const query = {
-                text: `SELECT comment.title, comment.description, "user".nickname FROM comment
-                JOIN "user" ON comment.user_id = "user".id
-                JOIN activity ON comment.activity_id = activity.id
-                WHERE activity.id=$1`,
-                values: [activityId]
-            }
-            return await pool.query(query)
-        } catch (error) {
-            res.status(500)
         }
     },
 
@@ -143,7 +127,7 @@ const activityDataMapper = {
         }
     },
 
-/*     findbestActivities: async ()=> {
+    findbestActivities: async ()=> {
         try {
             const query = {
                 text: `SELECT activity_has_rating.activity_id,ROUND(AVG(rate),1) AS "moyenne",activity.title, activity.slug, activity.town FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id JOIN activity ON activity.id = activity_has_rating.activity_id GROUP BY activity_has_rating.activity_id
@@ -153,7 +137,7 @@ const activityDataMapper = {
         } catch (error) {
             console.error(error)
         }
-    } */
+    } 
 };
 
 module.exports = activityDataMapper;
