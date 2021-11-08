@@ -130,6 +130,16 @@ const activityDataMapper = {
         } catch (error) {
             console.error(error)
         }
+    },
+
+    getArticles: async()=> {
+        try {
+            const query = {
+                text: `SELECT article.title, article.description,FROM articles`
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 /*     findbestActivities: async ()=> {
