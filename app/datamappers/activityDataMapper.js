@@ -111,9 +111,10 @@ const activityDataMapper = {
     getAverageRating: async(activityId) => {
         try {
             const query = {
-                text: `SELECT activity_id, AVG(rate) FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id WHERE activity_has_rating.activity_id = $1 GROUP BY activity_has_rating.activity_id;`,
+                text: `SELECT activity_has_rating.activity_id, ROUND(AVG(rate),1) AS "moyenne" FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id WHERE activity_has_rating.activity_id = $1 GROUP BY activity_has_rating.activity_id;`,
                 values: [activityId]
             }
+            return await pool.query(query);
         } catch (error) {
             console.error(error)
         }

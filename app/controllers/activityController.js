@@ -22,7 +22,7 @@ const activityController = {
         const activityId = Number(req.params.id);
         try {
             const result = await activityDataMapper.getOneActivity(activityId);
-            console.log(result)
+            console.log(result.rows)
             if(!result) {
                 throw new Error("This activity doesn't exist")
             }
@@ -30,6 +30,7 @@ const activityController = {
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             console.log(comments.rows)
             const avgRating = await activityDataMapper.getAverageRating(activityId)
+            console.log(avgRating.rows)
             
             res.json({
                 activity: result.rows[0],
