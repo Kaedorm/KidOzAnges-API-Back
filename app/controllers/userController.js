@@ -110,7 +110,7 @@ const userController = {
 
             const user = await userDataMapper.showUserProfile(req.user.id);
 
-            res.json(user.rows)
+            res.json({user:user.rows[0]})
         } catch {
             res.status(500)
         }
