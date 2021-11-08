@@ -11,7 +11,6 @@ const { authenticateToken } = require("./middleware/auth");
 //const upload = multer({ dest: './public' })
 
 //USER ROUTES
-
 //User signup route
 router.post("/api/user/signup", userController.signup);
 //user login route
