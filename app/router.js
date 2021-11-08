@@ -24,11 +24,13 @@ router.patch("/api/user/updatenickname", auth.authenticateToken, userController.
 router.patch("/api/user/updateemail", auth.authenticateToken, userController.updateEmail),
 
 //ACTIVITY ROUTES
-router.get("/api/activity/:id", activityController.activityDetails)
-router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity)
+router.get("/api/articles", activityController.getArticles);
+router.get("/api/activity/:id", activityController.activityDetails);
+router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity);
 //submit an activity , 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
-router.post("/api/searchactivity", activityController.searchActivity)
+router.post("/api/searchactivity", activityController.searchActivity);
+
 
 //ADMIN ROUTE
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);

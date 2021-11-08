@@ -130,6 +130,17 @@ const activityDataMapper = {
         } catch (error) {
             console.error(error)
         }
+    },
+
+    getArticles: async () => {
+        try {
+            const query = {
+                text: `SELECT article.title, article.description, "user".nickname FROM article JOIN "user" ON article.user_id="user".id`
+            };
+            return await pool.query(query);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 /*     findbestActivities: async ()=> {
