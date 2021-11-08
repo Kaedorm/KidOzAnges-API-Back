@@ -151,18 +151,18 @@ const activityController = {
         }
     },
 
-    displayTopRatedActivity: async (req, res) => {
-        try {
-            const bestactivities = await activityDataMapper.findbestActivities();
-            res.json({
-                bestactivities
-            });
+    displayTopActivity: async (req, res)=>{
+        console.log("avant le try");
+            try {
+                console.log("dans le try");
+                const bestactivities = await activityDataMapper.findbestActivities();
+                res.json(bestactivities.rows);
 
-        } catch (error) {
-            console.log(error)
-            res.status(500);
+            } catch (error) {
+                console.log(error)
+                res.status(500);
+            }
         }
-    }
 
 };
 

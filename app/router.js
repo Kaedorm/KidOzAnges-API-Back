@@ -7,8 +7,6 @@ const adminController = require("./controllers/adminController");
 const activityController = require("./controllers/activityController"); 
 const upload = require("./middleware/multer");
 
-//const multer = require('multer')
-//const upload = multer({ dest: './public' })
 
 //USER ROUTES
 //User signup route
@@ -25,8 +23,9 @@ router.patch("/api/user/updateemail", auth.authenticateToken, userController.upd
 //ACTIVITY ROUTES
 router.get("/api/articles", activityController.getArticles);
 router.get("/api/activity/:id", activityController.activityDetails);
+router.get("/api/topratedactivities", activityController.displayTopActivity);
 router.post("/api/activity/:id/comment", auth.authenticateToken, activityController.commentActivity);
-//submit an activity , 
+//submit an activity 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 router.post("/api/searchactivity", activityController.searchActivity);
 
@@ -34,7 +33,6 @@ router.post("/api/searchactivity", activityController.searchActivity);
 //ADMIN ROUTE
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
 
-//display the best rated activities
-//router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
+
 
 module.exports = router;
