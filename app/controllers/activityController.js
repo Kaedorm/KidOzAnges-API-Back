@@ -138,7 +138,18 @@ const activityController = {
         } catch (error) {
             res.status(500)
         }
+    }, 
+
+    getArticles: async (req, res) => {
+        try {
+        const articles = await activityDataMapper.getArticles();
+        res.json(articles.rows); 
+        } catch (error) {
+            res.status(500)
+        }
     }
+
+
 
 
 
