@@ -133,6 +133,7 @@ const activityController = {
             } = req.query;
             console.log(req.query)
             const result = await activityDataMapper.searchActivity(town, free);
+            console.log(result.rows)
             res.json({
                 activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
             })
