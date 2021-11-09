@@ -14,23 +14,31 @@ const unlinkFile = util.promisify(fs.unlink)
 const activityController = {
 
 
-    getPicture: (req, res) => {
-        const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
+
+/*     getPicture: (req, res) => {
+        const key = req.params.key //TODO a voir pour rajout
         const readStream = getFileStream(result.rows[0].url);
         readStream.pipe(res);
-    },
+    }, */
+
 
     activityDetails: async (req, res) => {
 
         //console.log("++++++",req.params)
         const activityId = Number(req.params.id);
         try {
+            
+            
             const result = await activityDataMapper.getOneActivity(activityId);
-          
-            console.log(result.rows)
-            if(!result) {
-                throw new Error("This activity doesn't exist")
+
+            const verify = result.rows.find(elm => elm.id == activityId)
+            console.log(verify)
+            if(!verify) {
+                return res.sendStatus(404);
             }
+            //console.log(result.rows)
+            
+                
 
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             //console.log(comments.rows)
@@ -124,25 +132,33 @@ const activityController = {
         }
     },
 
+
     searchActivity: async (req, res) => {
         try {
             const {
                 town,
                 free
             } = req.body;
+
             const result = await activityDataMapper.searchActivity(town, free);
+            if(!result.rows || result.rows.length == 0) {
+                res.json({
+                    error: "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+                })
+                throw new Error("L'activité n'existe pas");
+            }
             res.json({
-                activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+                activities: result.rows 
             })
         } catch (error) {
             res.status(500)
         }
-    }, 
+    },
 
     getArticles: async (req, res) => {
         try {
-        const articles = await activityDataMapper.getArticles();
-        res.json(articles.rows); 
+            const articles = await activityDataMapper.getArticles();
+            res.json(articles.rows);
         } catch (error) {
             res.status(500)
         }
@@ -159,7 +175,9 @@ const activityController = {
                 console.log(error)
                 res.status(500);
             }
-        }
+
+    }
+
 
 };
 

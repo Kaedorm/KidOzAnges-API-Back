@@ -18,6 +18,7 @@ router.get("/api/user", auth.authenticateToken, userController.showUser);
 // user delete his own profile
 router.delete("/api/user/delete", auth.authenticateToken, userController.deleteUser),
 router.patch("/api/user/updatenickname", auth.authenticateToken, userController.updateNickname),
+router.patch("/api/user/reportcomment", auth.authenticateToken, userController.reportComment)
 router.patch("/api/user/updateemail", auth.authenticateToken, userController.updateEmail),
 
 //ACTIVITY ROUTES
@@ -29,10 +30,12 @@ router.post("/api/activity/:id/comment", auth.authenticateToken, activityControl
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 router.post("/api/searchactivity", activityController.searchActivity);
 
-
-//ADMIN ROUTE
+//ADMIN ROUTE 
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
-
+router.delete("/admin/deletecomment", auth.authenticateToken, adminController.deleteComment);
+router.patch("/admin/updateactivity", auth.authenticateToken, adminController.validateActivity);
+router.delete("activity/deleteactivity", auth.authenticateToken, adminController.deleteActivity);
+//delete profile
 
 
 module.exports = router;
