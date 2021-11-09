@@ -1,0 +1,1 @@
+SELECT activity_id, AVG(rate) FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id GROUP BY activity_has_rating.activity_id;
