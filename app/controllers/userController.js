@@ -110,7 +110,7 @@ const userController = {
 
             const user = await userDataMapper.showUserProfile(req.user.id);
 
-            res.json(user.rows)
+            res.json({user:user.rows[0]})
         } catch {
             res.status(500)
         }
@@ -125,7 +125,35 @@ const userController = {
         } catch {
             res.status(500)
         }
-    }
+    },
+
+    updateNickname: async (req, res) => {
+        try {
+;
+            const newNickname = req.body.nickname;
+            await userDataMapper.updateNickname(newNickname,req.user.id);
+            res.json({
+                newNickname, 
+                message:"Votre profil a bien été mis à jour"});
+
+        } catch (error) {
+            res.status(500);
+        }
+    },
+
+    updateEmail: async(req, res) => {
+        try {
+            const newEmail = req.body.email;
+            await userDataMapper.updateEmail(newEmail, req.user.id)
+            res.json({
+                newEmail, 
+                message: "Votre profil a bien été mis à jour"
+            })
+
+        } catch (error) {
+            res.status(500);
+        }
+    },
 
 
 };
