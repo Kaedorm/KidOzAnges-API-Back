@@ -33,11 +33,7 @@ const adminController = {
 
     validateActivity: async (req, res) => {
         try {
-            if (confirm) { //TODO PRENDRE LA BONNE INFO SELON FRONT
-                await adminDataMapper.validateActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON FRONT
-            } else {
-                await adminDataMapper.deleteActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON FRONT
-            };
+            await adminDataMapper.validateActivity(req.body.activity.id)              
         } catch (error) {
             res.status(500).json
         }
