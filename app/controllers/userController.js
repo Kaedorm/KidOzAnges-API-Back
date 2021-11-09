@@ -155,7 +155,7 @@ const userController = {
         }
     },
 
-    reportedComment: async (req, res) => {
+    reportComment: async (req, res) => {
         try{
             const targetedComment = req.body.comment.id;
             await userDataMapper.reportComment(targetedComment); 
