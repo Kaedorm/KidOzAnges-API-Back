@@ -23,8 +23,8 @@ const adminController = {
 
     deleteComment: async (req, res) => {
         try {
-            await adminDataMapper.deleteComment(req.body.comment.id) //TODO PRENDRE LA BONNE INFO SELON YANIS
-        } catch (error) {
+            await adminDataMapper.deleteComment(req.body.comment_id) 
+        }catch (error) {
             res.status(500).json({
                 message: "impossible d'effacer ce commentaire."
             });
@@ -33,7 +33,8 @@ const adminController = {
 
     validateActivity: async (req, res) => {
         try {
-            await adminDataMapper.validateActivity(req.body.activity.id)              
+            await adminDataMapper.validateActivity(req.body.activity_id);
+            res.json({message: "l'activité est bien publiée"})              
         } catch (error) {
             res.status(500).json
         }
@@ -41,7 +42,8 @@ const adminController = {
 
     deleteActivity: async (req, res) => {
         try {
-            await adminDataMapper.deleteActivity(req.body.activity.id) //TODO PRENDRE LA BONNE INFO SELON YANIS
+            await adminDataMapper.deleteActivity(req.body.activity_id);
+            res.json({message: "l'activité est supprimée"}) 
         } catch (error) {
             res.status(500).json({
                 message: "impossible d'effacer cette activité."

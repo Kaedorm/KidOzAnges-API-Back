@@ -23,7 +23,7 @@ const adminDataMapper = {
 
     deleteActivity: async (activityId) => {
         const query = {
-            text: `DELETE FROM comment WHERE id=$1`,
+            text: `DELETE FROM activity WHERE id=$1`,
             values: [activityId]
         };
         return await pool.query(query);
