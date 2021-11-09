@@ -155,6 +155,18 @@ const userController = {
         }
     },
 
+    reportedComment: async (req, res) => {
+        try{
+            const targetedComment = req.body.comment.id;
+            await userDataMapper.reportComment(targetedComment); 
+            res.json({
+                message: "commentaire signalé"
+            })
+        }catch(error){
+            res.status(500);
+        }
+    }
+
 
 };
 

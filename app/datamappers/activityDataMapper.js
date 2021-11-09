@@ -50,7 +50,8 @@ const activityDataMapper = {
     commentActivity: async(title, description, userId, activityId) => {
         try {
             const query = {
-                text: `INSERT INTO comment(title, description, user_id, activity_id) VALUES ($1,$2,$3,$4) RETURNING id, title, description, user_id, activity_id;`,
+                text: `INSERT INTO comment(title, description, user_id, activity_id) 
+                VALUES ($1,$2,$3,$4) RETURNING id, title, description, user_id, activity_id;`,
                 values: [title, description, userId, activityId]
             }
             return await pool.query(query)
@@ -66,7 +67,8 @@ const activityDataMapper = {
                 text: `SELECT comment.title, comment.description, "user".nickname FROM comment
                 JOIN "user" ON comment.user_id = "user".id
                 JOIN activity ON comment.activity_id = activity.id
-                WHERE activity.id=$1`,
+                WHERE activity.id=$1
+                AND comment.report = false`,
                 values: [activityId]
             }
             return await pool.query(query)
