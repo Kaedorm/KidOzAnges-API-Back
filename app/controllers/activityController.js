@@ -15,9 +15,11 @@ const activityController = {
 
 
     getPicture: (req, res) => {
-        const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
-        const readStream = getFileStream(result.rows[0].url);
-        readStream.pipe(res);
+
+    console.log(req.params)
+    const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
+    const readStream = getFileStream(key)
+    readStream.pipe(res) //send the image into the res object.
     },
 
     activityDetails: async (req, res) => {
@@ -127,6 +129,7 @@ const activityController = {
         }
     },
 
+
     searchActivity: async (req, res) => {
         try {
             const {
@@ -170,7 +173,6 @@ const activityController = {
                 res.status(500);
             }
         }
-
 };
 
 module.exports = activityController;
