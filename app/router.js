@@ -33,6 +33,4 @@ router.post("/api/searchactivity", activityController.searchActivity);
 //ADMIN ROUTE
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
 
-
-
 module.exports = router;
