@@ -54,6 +54,21 @@ const activityDataMapper = {
         
     },
 
+    getCommentsOfActivity: async(activityId) => {
+        try {
+            const query = {
+                text: `SELECT comment.title, comment.description, "user".nickname FROM comment
+                JOIN "user" ON comment.user_id = "user".id
+                JOIN activity ON comment.activity_id = activity.id
+                WHERE activity.id=$1`,
+                values: [activityId]
+            }
+            return await pool.query(query)
+        } catch (error) {
+            res.status(500)
+        }
+    },
+
     rateActivity: async(rate) => {
         try {
             const query = {
