@@ -14,26 +14,30 @@ const unlinkFile = util.promisify(fs.unlink)
 const activityController = {
 
 
+
 /*     getPicture: (req, res) => {
         const key = req.params.key //TODO a voir pour rajout
         const readStream = getFileStream(result.rows[0].url);
         readStream.pipe(res);
     }, */
 
+
     activityDetails: async (req, res) => {
 
         //console.log("++++++",req.params)
         const activityId = Number(req.params.id);
         try {
+            
+            
             const result = await activityDataMapper.getOneActivity(activityId);
-            //console.log(result.rows)
-            console.log(result.rows[0].url)
-            // const readStream = getFileStream("picture-1636364869914-382003325.jpg");
-            // readStream.pipe(res);
-
-            if (!result) {
-                throw new Error("This activity doesn't exist")
+            const verify = result.rows.find(elm => elm.id == activityId)
+            console.log(verify)
+            if(!verify) {
+                return res.sendStatus(404);
             }
+            //console.log(result.rows)
+            
+                
 
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             //console.log(comments.rows)
@@ -125,6 +129,7 @@ const activityController = {
         }
     },
 
+
     searchActivity: async (req, res) => {
         try {
             const {
@@ -167,7 +172,9 @@ const activityController = {
                 console.log(error)
                 res.status(500);
             }
+
     }
+
 
 };
 
