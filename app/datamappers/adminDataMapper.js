@@ -23,7 +23,7 @@ const adminDataMapper = {
 
     deleteActivity: async (activityId) => {
         const query = {
-            text: `DELETE FROM comment WHERE id=$1`,
+            text: `DELETE FROM activity WHERE id=$1`,
             values: [activityId]
         };
         return await pool.query(query);
@@ -35,6 +35,15 @@ const adminDataMapper = {
             values: [commentId]
         };
         return await pool.query(query);
+    },
+
+    acceptComment: async (commentId) => {
+        const query = {
+            text: `UPDATE comment SET report='f' WHERE id=$1`,
+            values: [commentId]
+        };
+        return await pool.query(query);
+
     },
 };
 
