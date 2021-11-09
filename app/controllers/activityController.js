@@ -14,13 +14,13 @@ const unlinkFile = util.promisify(fs.unlink)
 const activityController = {
 
 
-    getPicture: (req, res) => {
 
-    console.log(req.params)
-    const key = req.params.key //TODO ajouter la route avec la key pour récupérer l'image.
-    const readStream = getFileStream(key)
-    readStream.pipe(res) //send the image into the res object.
-    },
+/*     getPicture: (req, res) => {
+        const key = req.params.key //TODO a voir pour rajout
+        const readStream = getFileStream(result.rows[0].url);
+        readStream.pipe(res);
+    }, */
+
 
     activityDetails: async (req, res) => {
 
@@ -172,7 +172,10 @@ const activityController = {
                 console.log(error)
                 res.status(500);
             }
-        }
+
+    }
+
+
 };
 
 module.exports = activityController;

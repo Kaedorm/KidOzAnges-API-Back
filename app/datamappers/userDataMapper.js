@@ -43,7 +43,7 @@ const userDataMapper = {
     //delete an existing user.
     deleteUser: async (userId) => {
         const query = {
-            text: "DELETE FROM \"user\" WHERE id=$1",
+            text: `DELETE FROM "user" WHERE id=$1`,
             values: [userId]
         }
         try {
@@ -88,6 +88,17 @@ const userDataMapper = {
             return await pool.query(query);
         } catch (error) {
             console.error(error)
+        }
+    },
+
+    reportedComment: async (commentId) => {
+        try {
+            const query = {
+                text: `UPDATE "comment" SET report = true WHERE id = $1`,
+                values: [commentId]
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 };

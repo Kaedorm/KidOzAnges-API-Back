@@ -3,13 +3,12 @@ const userDataMapper = require("../datamappers/userDataMapper");
 const adminDataMapper = require("../datamappers/adminDataMapper");
 
 const adminController = {
-
     displayToDoAdmin: async (req, res) => {
         //envoyer les activité certify f et les comments report t.
         try {
-            console.log("je suis dans le try")
             const pendingActivities = await adminDataMapper.getPendingActivities();
             const reportedComments = await adminDataMapper.getReportedComments();
+
             console.log("je sors du try")
             res.json({
                 activity: pendingActivities.rows,
@@ -50,5 +49,6 @@ const adminController = {
     },
 
 }; 
+
 
 module.exports = adminController;
