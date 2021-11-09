@@ -133,9 +133,14 @@ const activityController = {
             } = req.body;
 
             const result = await activityDataMapper.searchActivity(town, free);
-
+            if(!result) {
+                res.json({
+                    error: "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+                })
+                throw new Error("L'activité n'existe pas");
+            }
             res.json({
-                activities: result.rows.length > 0 ? result.rows : "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
+                activities: result.rows 
             })
         } catch (error) {
             res.status(500)
