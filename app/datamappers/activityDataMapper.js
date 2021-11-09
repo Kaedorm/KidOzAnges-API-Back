@@ -2,7 +2,14 @@ const pool = require("../database");
 
 const activityDataMapper = {
 
-
+    getIdOfActivity: async() => {
+        try {
+            const query = `SELECT id FROM activity;`
+            return await pool.query(query)
+        } catch(error) {
+            res.status(500)
+        }
+    },
     getOneActivity: async(activityId) => {
         const query = {
             text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url FROM activity JOIN picture ON picture.activity_id = activity.id WHERE activity.id=$1;`,
