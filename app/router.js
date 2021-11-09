@@ -29,14 +29,14 @@ router.get("/api/activity/:id", activityController.activityDetails)
 //submit an activity , 
 router.post("/api/submitactivity", auth.authenticateToken, upload.single('picture'), activityController.submitActivity);
 
-//ADMIN ROUTE //TODO RAJOUTER AUTH
-router.get("/admin", adminController.displayToDoAdmin ); 
-router.delete("/admin/deletecomment", adminController.deleteComment);
-router.patch("/admin/updateactivity", adminController.validateActivity);
-router.delete("activity/deleteactivity", adminController.deleteActivity);
+//ADMIN ROUTE 
+router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
+router.delete("/admin/deletecomment", auth.authenticateToken, adminController.deleteComment);
+router.patch("/admin/updateactivity", auth.authenticateToken, adminController.validateActivity);
+router.delete("activity/deleteactivity", auth.authenticateToken, adminController.deleteActivity);
 //delete profile
 
 
-//router.get("/api/bestactivities", activityController.displayTopRatedActivity); 
+
 
 module.exports = router;
