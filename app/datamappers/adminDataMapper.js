@@ -36,6 +36,15 @@ const adminDataMapper = {
         };
         return await pool.query(query);
     },
+
+    acceptComment: async (commentId) => {
+        const query = {
+            text: `UPDATE comment SET report='f' WHERE id=$1`,
+            values: [commentId]
+        };
+        return await pool.query(query);
+
+    },
 };
 
 module.exports = adminDataMapper;
