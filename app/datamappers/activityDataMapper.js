@@ -12,6 +12,7 @@ const activityDataMapper = {
     },
     getOneActivity: async(activityId) => {
         const query = {
+
             text: `SELECT activity.id, activity.description, activity.town, activity.zipcode, activity.title, activity.free, picture.url 
             FROM activity 
             JOIN picture ON picture.activity_id = activity.id 
@@ -157,6 +158,7 @@ const activityDataMapper = {
     },
 
     getArticles: async () => {
+
         try {
             const query = {
                 text: `SELECT article.title, article.description, "user".nickname 

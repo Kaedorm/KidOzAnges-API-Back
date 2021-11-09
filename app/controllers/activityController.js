@@ -30,6 +30,7 @@ const activityController = {
             
             
             const result = await activityDataMapper.getOneActivity(activityId);
+
             const verify = result.rows.find(elm => elm.id == activityId)
             console.log(verify)
             if(!verify) {
@@ -42,7 +43,9 @@ const activityController = {
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             //console.log(comments.rows)
             const avgRating = await activityDataMapper.getAverageRating(activityId)
-            //console.log(avgRating.rows)
+
+            console.log(avgRating.rows)
+            
 
             res.json({
                 activity: result.rows[0],
