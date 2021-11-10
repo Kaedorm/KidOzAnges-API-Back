@@ -116,6 +116,13 @@ const activityController = {
                 rate
             } = req.body;
             if (rate && rate > 0 && rate < 6) {
+                const userRatesActivity = await activityDataMapper.getUserWhoRatesActivity(userId, activityId);
+                const hasRates = userRatesActivity.rows.find(elm => elm.user_id == userId && elm.activity_id == activityId);
+                console.log(hasRates)
+                if(hasRates) {
+                    res.json({error: "Vous ne pouvez pas noter plusieurs fois cette activité"});
+                    throw new Error("Cette activité est déjà notée par cet utilisateur")
+                } 
                 const result = await activityDataMapper.rateActivity(rate)
 
                 const rateId = result.rows[0].id;
