@@ -2,14 +2,7 @@ const pool = require("../database");
 
 const activityDataMapper = {
 
-    getIdOfActivity: async() => {
-        try {
-            const query = `SELECT id FROM activity;`
-            return await pool.query(query)
-        } catch(error) {
-            res.status(500)
-        }
-    },
+    
     getOneActivity: async(activityId) => {
         const query = {
 
@@ -106,7 +99,7 @@ const activityDataMapper = {
             };
             return await pool.query(query)
         } catch(err) {
-            console.error(error);
+            console.error(err);
         }
         
     },
@@ -185,6 +178,18 @@ const activityDataMapper = {
             return await pool.query(query);
         } catch (error) {
             console.error(error)
+        }
+    },
+
+    getUserWhoRatesActivity : async(userId, activityId) => {
+        try {
+            const query = {
+                text: `SELECT * FROM user_rates_activity WHERE user_id = $1 AND activity_id = $2;`,
+                values: [userId, activityId]
+            }
+            return await pool.query(query)
+        } catch (error) {
+            res.sendStatus(500);
         }
     }
 };
