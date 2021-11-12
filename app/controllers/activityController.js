@@ -70,7 +70,9 @@ const activityController = {
             console.log(req.user)
             const slug = description.slice(0, 30) + '...'; // we are taking the thirty first words of the description 
             const userId = Number(req.user.id);
-
+            const majTown =  town.charAt(0).toUpperCase() + town.slice(1).toLowerCase();
+            console.log(majTown);
+                        
             //check if all fields are full.
             if (!title || !description || !zipcode || !town || !free) {
 
@@ -80,7 +82,7 @@ const activityController = {
 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, town, slug, Number(zipcode), free, Number(userId));
+            const newActivity = await activityDataMapper.submitActivity(title, description, majTown, slug, Number(zipcode), free, Number(userId));
             // we take the id of the activity just posted
 
             const activityId = newActivity.rows[0].id
