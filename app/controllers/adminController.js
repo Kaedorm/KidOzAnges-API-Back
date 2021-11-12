@@ -21,7 +21,7 @@ const adminController = {
 
     deleteComment: async (req, res) => {
         try {
-            await adminDataMapper.deleteComment(req.body.comment_id);
+            await adminDataMapper.deleteComment(req.query.id);
             res.json({message:"le commentaire est supprimé"}); 
         }catch (error) {
             res.status(500).json({
@@ -32,8 +32,8 @@ const adminController = {
 
     acceptComment: async(req, res)=>{
         try {
-            await adminDataMapper.acceptComment(req.body.comment_id);
-            res.json({message: "le commentaire est validée"});
+            await adminDataMapper.acceptComment(req.query.id);
+            res.json({message: "le commentaire est validé"});
         } catch (error) {
             res.status(500).json
         }
@@ -50,7 +50,7 @@ const adminController = {
 
     deleteActivity: async (req, res) => {
         try {
-            await adminDataMapper.deleteActivity(req.body.activity_id);
+            await adminDataMapper.deleteActivity(req.query.id);
             res.json({message: "l'activité est supprimée"}); 
         } catch (error) {
             res.status(500).json({
