@@ -32,7 +32,7 @@ router.post("/api/searchactivity", activityController.searchActivity);
 
 //ADMIN ROUTE 
 router.get("/admin", auth.authenticateToken, adminController.displayToDoAdmin);
-router.patch("/admin/updateactivity", auth.authenticateToken, adminController.validateActivity);
+router.patch("/admin/updateactivity/:id", auth.authenticateToken, adminController.validateActivity);
 router.delete("/admin/deleteactivity", auth.authenticateToken, adminController.deleteActivity);
 router.patch("admin/acceptComment", auth.authenticateToken, adminController.acceptComment); 
 router.delete("/admin/deletecomment", auth.authenticateToken, adminController.deleteComment);

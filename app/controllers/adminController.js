@@ -41,7 +41,7 @@ const adminController = {
 
     validateActivity: async (req, res) => {
         try {
-            await adminDataMapper.validateActivity(req.body.activity_id);
+            await adminDataMapper.validateActivity(req.params.id);
             res.json({message: "l'activité est bien publiée"});              
         } catch (error) {
             res.status(500).json
