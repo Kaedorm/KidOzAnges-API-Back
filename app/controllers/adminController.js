@@ -10,7 +10,7 @@ const adminController = {
             const reportedComments = await adminDataMapper.getReportedComments();
 
             res.json({
-                activity: activity.rows.length > 0 ? pendingActivities.rows : "aucune activité à valider.",
+                activity: pendingActivities.rows.length > 0 ? pendingActivities.rows : "aucune activité à valider.",
                 comment: reportedComments.rows.length > 0 ? reportedComments.rows : "aucun commentaire signalé."
             });
 
