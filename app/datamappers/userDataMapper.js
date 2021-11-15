@@ -94,9 +94,10 @@ const userDataMapper = {
     reportedComment: async (commentId) => {
         try {
             const query = {
-                text: `UPDATE "comment" SET report = true WHERE id = $1`,
+                text: `UPDATE "comment" SET report = 'true' WHERE id = $1`,
                 values: [commentId]
             }
+            return await pool.query(query);
         } catch (error) {
             console.error(error);
         }
