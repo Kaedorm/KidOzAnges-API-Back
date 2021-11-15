@@ -157,8 +157,8 @@ const userController = {
 
     reportComment: async (req, res) => {
         try{
-            const targetedComment = req.body.comment.id;
-            await userDataMapper.reportComment(targetedComment); 
+            const targetedComment = req.query.id;
+            await userDataMapper.reportedComment(targetedComment); 
             res.json({
                 message: "commentaire signalé"
             })
