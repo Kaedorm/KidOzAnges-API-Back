@@ -120,7 +120,7 @@ const activityController = {
                 const hasRates = userRatesActivity.rows.find(elm => elm.user_id == userId && elm.activity_id == activityId);
                 console.log(hasRates)
                 if(hasRates) {
-                    res.json({error: "Vous ne pouvez pas noter plusieurs fois cette activité"});
+                    res.json({erreur: "Vous ne pouvez pas noter plusieurs fois cette activité"});
                     throw new Error("Cette activité est déjà notée par cet utilisateur")
                 } 
                 const result = await activityDataMapper.rateActivity(rate)
@@ -135,7 +135,7 @@ const activityController = {
                 newComment: newComment.rows[0]
             })
         } catch (err) {
-            console.error(err)
+            res.sendStatus(403);
         }
     },
 
