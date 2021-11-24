@@ -8,8 +8,6 @@ const adminController = {
         try {
             const pendingActivities = await adminDataMapper.getPendingActivities();
             const reportedComments = await adminDataMapper.getReportedComments();
-
-            console.log("je sors du try")
             res.json({
                 activity: pendingActivities.rows,
                 comment: reportedComments.rows
@@ -36,7 +34,7 @@ const adminController = {
             await adminDataMapper.acceptComment(req.body.comment_id);
             res.json({message: "le commentaire est validée"});
         } catch (error) {
-            res.status(500).json
+            res.status(500)
         }
     },
 
@@ -45,7 +43,7 @@ const adminController = {
             await adminDataMapper.validateActivity(req.body.activity_id);
             res.json({message: "l'activité est bien publiée"});              
         } catch (error) {
-            res.status(500).json
+            res.status(500)
         }
     },
 

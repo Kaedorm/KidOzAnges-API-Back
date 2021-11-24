@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS "activity" (
   "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "title" TEXT NOT NULL,
   "description" TEXT NOT NULL,
-  "slug" TEXT,
   "zipcode" INT NOT NULL,
   "location" POINT,
   "town" TEXT NOT NULL,
@@ -50,7 +49,6 @@ CREATE TABLE IF NOT EXISTS "article"(
 
 CREATE TABLE IF NOT EXISTS "comment" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "report" BOOLEAN NOT NULL DEFAULT 'false',
     "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE,

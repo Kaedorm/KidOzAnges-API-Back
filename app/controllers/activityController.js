@@ -53,8 +53,7 @@ const activityController = {
                 town,
                 free,
             } = req.body;
-            (req.user)
-            const slug = description.slice(0, 30) + '...'; // we are taking the thirty first words of the description 
+            
             const userId = Number(req.user.id);
 
             //check if all fields are full.
@@ -66,7 +65,7 @@ const activityController = {
 
             };
             //send data in DB.
-            const newActivity = await activityDataMapper.submitActivity(title, description, town, slug, Number(zipcode), free, Number(userId));
+            const newActivity = await activityDataMapper.submitActivity(title, description, town, Number(zipcode), free, Number(userId));
             // we take the id of the activity just posted
 
             const activityId = newActivity.rows[0].id
@@ -102,13 +101,16 @@ const activityController = {
                 rate
             } = req.body;
             if (rate && rate > 0 && rate < 6) {
+                // we are checking if an user already rates the activity
                 const userRatesActivity = await activityDataMapper.getUserWhoRatesActivity(userId, activityId);
                 const hasRates = userRatesActivity.rows.find(elm => elm.user_id == userId && elm.activity_id == activityId);
+                // if this user alredy rates this activity we return an error
                 (hasRates)
                 if (hasRates) {
                     res.json({ erreur: "Vous ne pouvez pas noter plusieurs fois cette activité" });
                     throw new Error("Cette activité est déjà notée par cet utilisateur")
                 }
+                // else we insert in database the user who rates this activity with the rate of the activity
                 const result = await activityDataMapper.rateActivity(rate)
 
                 const rateId = result.rows[0].id;
@@ -116,6 +118,7 @@ const activityController = {
                 await activityDataMapper.activityRating(Number(rateId), activityId);
 
             }
+            // we insert the comment of this activity
             const newComment = await activityDataMapper.commentActivity(title, comment, userId, activityId);
             res.json({
                 newComment: newComment.rows[0]
@@ -134,12 +137,14 @@ const activityController = {
             } = req.body;
 
             const result = await activityDataMapper.searchActivity(town, free);
+            // if no activity corresponding the user search we send an error
             if (!result.rows || result.rows.length == 0) {
                 res.json({
                     error: "Nous sommes désolés, mais aucune activité ne correspond à vos critères de recherche."
                 })
                 throw new Error("L'activité n'existe pas");
             }
+            // else return all activities from the user search
             res.json({
                 activities: result.rows
             })
@@ -151,6 +156,11 @@ const activityController = {
     getArticles: async (req, res) => {
         try {
             const articles = await activityDataMapper.getArticles();
+            if(!articles.rows || articles.rows.length == 0) {
+                res.json({
+                    error: "Nous sommes désolés mais aucun article n'est disponible"
+                })
+            }
             res.json(articles.rows);
         } catch (error) {
             res.status(500)

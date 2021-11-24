@@ -141,20 +141,6 @@ const userController = {
         }
     },
 
-    updateEmail: async(req, res) => {
-        try {
-            const newEmail = req.body.email;
-            await userDataMapper.updateEmail(newEmail, req.user.id)
-            res.json({
-                newEmail, 
-                message: "Votre profil a bien été mis à jour"
-            })
-
-        } catch (error) {
-            res.status(500);
-        }
-    },
-
     reportComment: async (req, res) => {
         try{
             const targetedComment = req.body.comment.id;
