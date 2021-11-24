@@ -42,10 +42,11 @@ const userController = {
             if (!nickname || !firstname || !lastname || !email || !password || !passwordConfirm || !gender) errors.push("Veuillez renseigner tous les champs.");
             // verifying if email is in good format
             if (!validate(email)) errors.push("L'adresse mail renseignée n'est pas correcte.");
-            // if(userFound) errors.push("L'adresse mail est déjà utilisée.");
+            //checkyng nickname availability
+            if (result.rows[0].nickname === nickname) errors.push("Ce pseudo est déjà utilisé!")
+            
 
             // if the errors array isn't empty we push all errors
-
             if (errors.length > 0) {
                 res.json({
                     errors
@@ -143,8 +144,8 @@ const userController = {
 
     reportComment: async (req, res) => {
         try{
-            const targetedComment = req.body.comment.id;
-            await userDataMapper.reportComment(targetedComment); 
+            const targetedComment = req.query.id;
+            await userDataMapper.reportedComment(targetedComment); 
             res.json({
                 message: "commentaire signalé"
             })
@@ -152,7 +153,6 @@ const userController = {
             res.status(500);
         }
     }
-
 
 };
 

@@ -65,7 +65,7 @@ const activityDataMapper = {
     getCommentsOfActivity: async(activityId) => {
         try {
             const query = {
-                text: `SELECT comment.title, comment.description, "user".nickname FROM comment
+                text: `SELECT comment.id, comment.title, comment.description, "user".nickname FROM comment
                 JOIN "user" ON comment.user_id = "user".id
                 JOIN activity ON comment.activity_id = activity.id
                 WHERE activity.id=$1
@@ -161,12 +161,12 @@ const activityDataMapper = {
     findbestActivities: async ()=> {
         try {
             const query = {
-                text: `SELECT activity_has_rating.activity_id,ROUND(AVG(rate),1) AS "moyenne", activity.title, activity.slug, activity.town, picture.url 
+                text: `SELECT activity_has_rating.activity_id,ROUND(AVG(rate),1) AS "moyenne", activity.title, activity.description, activity.town, picture.url 
                 FROM activity_has_rating JOIN rating ON rating.id = activity_has_rating.note_id 
                 JOIN activity ON activity.id=activity_has_rating.activity_id 
                 JOIN picture ON picture.activity_id = activity.id
                 WHERE activity.certify = true
-                GROUP BY activity_has_rating.activity_id, activity.title, activity.slug, activity.town, picture.url 
+                GROUP BY activity_has_rating.activity_id, activity.title, activity.description, activity.town, picture.url 
                 ORDER BY moyenne DESC LIMIT 4;`
             };
             return await pool.query(query);
