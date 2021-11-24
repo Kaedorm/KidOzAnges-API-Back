@@ -67,25 +67,15 @@ const activityController = {
 
             };
             //send data in DB.
-<<<<<<< HEAD
             const newActivity = await activityDataMapper.submitActivity(title, description, town, Number(zipcode), free, Number(userId));
-=======
-            const newActivity = await activityDataMapper.submitActivity(title, description, majTown, slug, Number(zipcode), free, Number(userId));
->>>>>>> f3542192df6698a0f011ef09e27c8daf51961684
             // we take the id of the activity just posted
 
             const activityId = newActivity.rows[0].id
 
             //!activityController.uploadPicture(req, res); //send the picture to AWS and delete it from public storage.
             const file = req.file
-<<<<<<< HEAD
-
-            const result = await uploadFile(file)
-
-=======
             const result = await uploadFile(file)
             
->>>>>>> f3542192df6698a0f011ef09e27c8daf51961684
             await unlinkFile(file.path) //delete picture in app
 
             // we insert picture path in database with the id of the activity just posted
