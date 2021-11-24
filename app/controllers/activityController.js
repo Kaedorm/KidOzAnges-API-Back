@@ -29,7 +29,7 @@ const activityController = {
             const verify = result.rows.find(elm => elm.id == activityId)
                 (verify)
             if (!verify) {
-                return res.sendStatus(404);
+                return res.sendStatus(404).json({erreur: "404"});
             }
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             const avgRating = await activityDataMapper.getAverageRating(activityId)
