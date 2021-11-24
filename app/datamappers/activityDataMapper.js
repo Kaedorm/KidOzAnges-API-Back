@@ -31,7 +31,7 @@ const activityDataMapper = {
             return await pool.query(query);
         
         }catch(error) {
-                console.log(error)
+                res.sendStatus(500)
         }
     },
 
@@ -44,7 +44,7 @@ const activityDataMapper = {
             }
             return await pool.query(query)
         }catch(error) {
-            console.error(error)
+            res.sendStatus(500)
         }
     },
 
@@ -57,7 +57,7 @@ const activityDataMapper = {
             }
             return await pool.query(query)
         } catch (error) {
-            console.error(error)
+            res.sendStatus(500)
         }
         
     },
@@ -74,8 +74,7 @@ const activityDataMapper = {
             }
             return await pool.query(query)
         } catch (error) {
-            res.status(500)
-        }
+            res.sendStatus(500)        }
     },
 
     rateActivity: async(rate) => {
@@ -86,7 +85,7 @@ const activityDataMapper = {
             }
             return await pool.query(query);
         } catch(err) {
-            console.error(error)
+            res.sendStatus(500)
         } 
     },
 
@@ -99,8 +98,7 @@ const activityDataMapper = {
             };
             return await pool.query(query)
         } catch(err) {
-            console.error(err);
-        }
+            res.sendStatus(500)        }
         
     },
 
@@ -113,8 +111,7 @@ const activityDataMapper = {
             }
             return await pool.query(query)
         } catch (error) {
-            console.error(error);
-        }
+            res.sendStatus(500)        }
 
     },
 
@@ -130,8 +127,7 @@ const activityDataMapper = {
             }
             return await pool.query(query);
         } catch (error) {
-            console.error(error)
-        }
+            res.sendStatus(500)        }
     },
 
     searchActivity: async(town, free) => {
@@ -146,8 +142,7 @@ const activityDataMapper = {
             }
             return await pool.query(query);
         } catch (error) {
-            console.error(error)
-        }
+            res.sendStatus(500)        }
     },
 
     getArticles: async () => {
@@ -160,8 +155,7 @@ const activityDataMapper = {
             };
             return await pool.query(query);
         } catch (error) {
-            console.error(error)
-        }
+            res.sendStatus(500)        }
     },
 
     findbestActivities: async ()=> {
@@ -177,7 +171,7 @@ const activityDataMapper = {
             };
             return await pool.query(query);
         } catch (error) {
-            console.error(error)
+            res.sendStatus(500)
         }
     },
 
