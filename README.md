@@ -4,4 +4,6 @@ Un site d'échange d'idées concernant les activités pour enfants. Ceci est l'A
 
 Gestion des utilisateurs connectés, d'une page administrateur (qui doivent valider une proposition d'activité avant son apparition sur le site), mise en place de token de connection, récupération de photos et stockage de celles-ci (multer et AWS, retiré dans cette version du code.)
 
+L'API ainsi que la base de données (en postgreSQL) ont été déployées sur Heroku. 
+
 
