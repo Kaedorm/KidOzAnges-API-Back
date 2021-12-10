@@ -3,20 +3,18 @@ const userDataMapper = require("../datamappers/userDataMapper");
 const adminDataMapper = require("../datamappers/adminDataMapper");
 
 //new requires for AWS
-const {
+/* const {
     uploadFile,
     getFileStream
 } = require('../../s3')
 const fs = require('fs')
 const util = require('util');
-const unlinkFile = util.promisify(fs.unlink)
+const unlinkFile = util.promisify(fs.unlink) */
 
 const activityController = {
 
-
-
     /*     getPicture: (req, res) => {
-            const key = req.params.key //TODO a voir pour rajout
+            const key = req.params.key 
             const readStream = getFileStream(result.rows[0].url);
             readStream.pipe(res);
         }, */
@@ -33,6 +31,7 @@ const activityController = {
             }
             const comments = await activityDataMapper.getCommentsOfActivity(activityId);
             const avgRating = await activityDataMapper.getAverageRating(activityId)
+
             res.json({
                 activity: result.rows[0],
                 comments: comments.rows.length > 0 ? comments.rows : "Cette activité ne contient pas de commentaire",
@@ -40,7 +39,7 @@ const activityController = {
             })
 
         } catch (error) {
-            res.status(500)
+            // res.status(500)
         }
     },
 
@@ -70,10 +69,10 @@ const activityController = {
 
             const activityId = newActivity.rows[0].id
 
-            //!activityController.uploadPicture(req, res); //send the picture to AWS and delete it from public storage.
-            const file = req.file
 
-            const result = await uploadFile(file)
+/*             const file = req.file
+
+            const result = await uploadFile(file) */
 
             await unlinkFile(file.path) //delete picture in app
 
